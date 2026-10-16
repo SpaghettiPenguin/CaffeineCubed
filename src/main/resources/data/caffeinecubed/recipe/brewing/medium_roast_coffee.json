@@ -1,0 +1,8 @@
+{
+  "type": "caffeinecubed:brewing",
+  "grounds": {
+    "item": "caffeinecubed:medium_roast_coffee_grounds"
+  },
+  "count": 3,
+  "roast": "medium"
+}

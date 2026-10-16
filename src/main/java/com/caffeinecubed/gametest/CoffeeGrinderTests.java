@@ -37,13 +37,13 @@ public final class CoffeeGrinderTests {
         List<Item> grounds = List.of(ModItems.LIGHT_ROAST_COFFEE_GROUNDS.get(), ModItems.MEDIUM_ROAST_COFFEE_GROUNDS.get(), ModItems.DARK_ROAST_COFFEE_GROUNDS.get());
         for (int i = 0; i < beans.size(); i++) {
             for (BeanQuality quality : BeanQuality.values()) {
-                ItemStack ground = CoffeeGrinderItem.grind(coffee(beans.get(i), quality, 1));
+                ItemStack ground = CoffeeGrinderItem.grind(helper.getLevel(), coffee(beans.get(i), quality, 1));
                 helper.assertTrue(ground.is(grounds.get(i)) && ground.getCount() == 1, beans.get(i) + " should grind into " + grounds.get(i) + " but made " + ground);
                 helper.assertTrue(BeanQuality.of(ground) == quality, quality + " beans ground into " + BeanQuality.of(ground) + " grounds");
             }
         }
-        helper.assertTrue(CoffeeGrinderItem.grind(coffee(ModItems.RAW_COFFEE_BEANS.get(), BeanQuality.GREAT, 1)).isEmpty(), "Raw beans have to be roasted first");
-        helper.assertTrue(CoffeeGrinderItem.grind(coffee(ModItems.DARK_ROAST_COFFEE_GROUNDS.get(), BeanQuality.GREAT, 1)).isEmpty(), "Grounds can't be ground again");
+        helper.assertTrue(CoffeeGrinderItem.grind(helper.getLevel(), coffee(ModItems.RAW_COFFEE_BEANS.get(), BeanQuality.GREAT, 1)).isEmpty(), "Raw beans have to be roasted first");
+        helper.assertTrue(CoffeeGrinderItem.grind(helper.getLevel(), coffee(ModItems.DARK_ROAST_COFFEE_GROUNDS.get(), BeanQuality.GREAT, 1)).isEmpty(), "Grounds can't be ground again");
         helper.succeed();
     }
 
@@ -170,9 +170,13 @@ public final class CoffeeGrinderTests {
         return stack;
     }
 
+    private static List<Item> grounds() {
+        return List.of(ModItems.LIGHT_ROAST_COFFEE_GROUNDS.get(), ModItems.MEDIUM_ROAST_COFFEE_GROUNDS.get(), ModItems.DARK_ROAST_COFFEE_GROUNDS.get());
+    }
+
     private static int countGrounds(Player player) {
         int count = 0;
-        for (Item grounds : CoffeeGrinderItem.GROUNDS.values().stream().map(item -> item.get().asItem()).toList()) {
+        for (Item grounds : grounds()) {
             count += player.getInventory().countItem(grounds);
         }
         return count;
@@ -181,7 +185,7 @@ public final class CoffeeGrinderTests {
     private static ItemStack findGrounds(Player player) {
         for (int slot = 0; slot < player.getInventory().getContainerSize(); slot++) {
             ItemStack stack = player.getInventory().getItem(slot);
-            if (CoffeeGrinderItem.GROUNDS.values().stream().anyMatch(stack::is)) {
+            if (grounds().stream().anyMatch(stack::is)) {
                 return stack;
             }
         }

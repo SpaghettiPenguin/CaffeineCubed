@@ -1,19 +1,23 @@
 package com.caffeinecubed.compat.jei;
 
 import com.caffeinecubed.CaffeineCubed;
-import com.caffeinecubed.block.entity.CoffeeMachineBlockEntity;
 import com.caffeinecubed.block.entity.CoffeeRoasterBlockEntity;
 import com.caffeinecubed.client.CoffeeMachineScreen;
 import com.caffeinecubed.client.CoffeeRoasterScreen;
 import com.caffeinecubed.client.TripleAxisSiphonScreen;
 import com.caffeinecubed.coffee.BeanQuality;
 import com.caffeinecubed.coffee.Roast;
-import com.caffeinecubed.item.CoffeeGrinderItem;
 import com.caffeinecubed.menu.CoffeeRoasterMenu;
+import com.caffeinecubed.recipe.SingleItemCoffeeRecipe;
 import com.caffeinecubed.registry.ModDataComponents;
 import com.caffeinecubed.registry.ModItems;
 import com.caffeinecubed.registry.ModMenus;
+import com.caffeinecubed.registry.ModRecipes;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.ToIntFunction;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -25,10 +29,14 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.registries.DeferredItem;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 /**
  * Adds Caffeine Cubed to JEI, when it is installed: the Coffee Roasting, Grinding and Brewing pages, the Triple Axis
@@ -81,16 +89,40 @@ public class CaffeineCubedJeiPlugin implements IModPlugin {
                 new SiphoningCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
+    /**
+     * The pages come from the recipes the server sent, so a data pack's changes show up too.
+     */
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        List<Item> beans = CoffeeRoasterBlockEntity.ROASTS.stream().<Item>map(DeferredItem::get).toList();
-        registration.addRecipes(RoastingCategory.TYPE, BeanRecipe.of(beans, CoffeeRoasterBlockEntity::roast));
-        registration.addRecipes(GrindingCategory.TYPE, BeanRecipe.of(beans, CoffeeGrinderItem::grind));
-        // Each roast's grounds, lightest first
-        List<Item> grounds = beans.stream().map(roast -> CoffeeGrinderItem.grind(new ItemStack(roast)))
-                .filter(ground -> !ground.isEmpty()).map(ItemStack::getItem).toList();
-        registration.addRecipes(BrewingCategory.TYPE, BrewingRecipe.all(grounds));
-        registration.addRecipes(SiphoningCategory.TYPE, SiphoningRecipe.all());
+        ClientPacketListener connection = Minecraft.getInstance().getConnection();
+        if (connection == null) {
+            return;
+        }
+        RecipeManager recipes = connection.getRecipeManager();
+        registration.addRecipes(RoastingCategory.TYPE, beanRecipes(recipes.getAllRecipesFor(ModRecipes.ROASTING.get())));
+        registration.addRecipes(GrindingCategory.TYPE, beanRecipes(recipes.getAllRecipesFor(ModRecipes.GRINDING.get())));
+        registration.addRecipes(BrewingCategory.TYPE, BrewingRecipe.all(inItemOrder(recipes.getAllRecipesFor(ModRecipes.BREWING.get()),
+                recipe -> recipe.grounds().getItems())));
+        registration.addRecipes(SiphoningCategory.TYPE, SiphoningRecipe.all(inItemOrder(recipes.getAllRecipesFor(ModRecipes.SIPHONING.get()),
+                recipe -> new ItemStack[]{recipe.result()})));
+    }
+
+    private static <T extends SingleItemCoffeeRecipe> List<BeanRecipe> beanRecipes(List<RecipeHolder<T>> recipes) {
+        return inItemOrder(recipes, recipe -> recipe.ingredient().getItems()).stream()
+                .map(holder -> BeanRecipe.of(holder.id(), holder.value().ingredient(), holder.value()::make))
+                .filter(Objects::nonNull).toList();
+    }
+
+    /**
+     * The recipes in the order their items were added to the game (beans and grounds lightest roast first, then the
+     * siphon's blends), then by id, rather than the order they happened to load in.
+     */
+    private static <T extends Recipe<?>> List<RecipeHolder<T>> inItemOrder(List<RecipeHolder<T>> recipes, Function<T, ItemStack[]> items) {
+        ToIntFunction<RecipeHolder<T>> firstItem = holder -> {
+            ItemStack[] stacks = items.apply(holder.value());
+            return stacks.length == 0 ? Integer.MAX_VALUE : BuiltInRegistries.ITEM.getId(stacks[0].getItem());
+        };
+        return recipes.stream().sorted(Comparator.comparingInt(firstItem).thenComparing(holder -> holder.id().toString())).toList();
     }
 
     @Override

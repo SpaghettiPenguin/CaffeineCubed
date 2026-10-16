@@ -1,11 +1,8 @@
 package com.caffeinecubed.item;
 
 import com.caffeinecubed.CaffeineCubedConfig;
-import com.caffeinecubed.coffee.BeanQuality;
-import com.caffeinecubed.registry.ModDataComponents;
-import com.caffeinecubed.registry.ModItems;
+import com.caffeinecubed.recipe.CoffeeRecipes;
 import java.util.List;
-import java.util.Map;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -24,7 +21,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.registries.DeferredItem;
 
 /**
  * A hand grinder. Hold it in the main hand with roasted beans in the off hand, then hold right-click: every second it
@@ -43,13 +39,7 @@ public class CoffeeGrinderItem extends Item {
     public static int grindTime() {
         return CaffeineCubedConfig.get(CaffeineCubedConfig.HAND_GRINDING_TIME);
     }
-    /**
-     * Which beans grind into which grounds. Raw beans have to be roasted first.
-     */
-    public static final Map<DeferredItem<? extends Item>, DeferredItem<? extends Item>> GROUNDS = Map.of(
-            ModItems.LIGHT_ROAST_COFFEE_BEANS, ModItems.LIGHT_ROAST_COFFEE_GROUNDS,
-            ModItems.MEDIUM_ROAST_COFFEE_BEANS, ModItems.MEDIUM_ROAST_COFFEE_GROUNDS,
-            ModItems.DARK_ROAST_COFFEE_BEANS, ModItems.DARK_ROAST_COFFEE_GROUNDS);
+
     // Long enough to grind any number of beans in one go; letting go of the button stops it
     private static final int USE_DURATION = 72000;
 
@@ -58,17 +48,11 @@ public class CoffeeGrinderItem extends Item {
     }
 
     /**
-     * What grinding one of these beans makes: grounds of the same roast and quality. Nothing if they can't be ground.
+     * What grinding one of these beans makes, from the level's grinding recipes: grounds of the same roast and quality.
+     * Nothing if they can't be ground (raw beans have to be roasted first).
      */
-    public static ItemStack grind(ItemStack beans) {
-        for (var entry : GROUNDS.entrySet()) {
-            if (beans.is(entry.getKey())) {
-                ItemStack grounds = new ItemStack(entry.getValue().get());
-                grounds.set(ModDataComponents.BEAN_QUALITY.get(), BeanQuality.of(beans));
-                return grounds;
-            }
-        }
-        return ItemStack.EMPTY;
+    public static ItemStack grind(Level level, ItemStack beans) {
+        return CoffeeRecipes.grinding(level, beans).map(recipe -> recipe.make(beans)).orElse(ItemStack.EMPTY);
     }
 
     @Override
@@ -77,7 +61,7 @@ public class CoffeeGrinderItem extends Item {
         if (hand != InteractionHand.MAIN_HAND) {
             return InteractionResultHolder.pass(grinder);
         }
-        if (grind(player.getOffhandItem()).isEmpty()) {
+        if (grind(level, player.getOffhandItem()).isEmpty()) {
             if (!level.isClientSide) {
                 player.displayClientMessage(Component.translatable("message.caffeinecubed.coffee_grinder.no_beans"), true);
             }
@@ -93,7 +77,7 @@ public class CoffeeGrinderItem extends Item {
             return;
         }
         ItemStack beans = player.getOffhandItem();
-        ItemStack grounds = grind(beans);
+        ItemStack grounds = grind(level, beans);
         if (grounds.isEmpty()) {
             player.releaseUsingItem();
             return;

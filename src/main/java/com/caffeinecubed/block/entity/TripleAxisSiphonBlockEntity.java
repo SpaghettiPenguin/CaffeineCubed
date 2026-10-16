@@ -3,6 +3,7 @@ package com.caffeinecubed.block.entity;
 import com.caffeinecubed.CaffeineCubedConfig;
 import com.caffeinecubed.block.TripleAxisSiphonBlock;
 import com.caffeinecubed.menu.TripleAxisSiphonMenu;
+import com.caffeinecubed.recipe.SiphonRecipe;
 import com.caffeinecubed.registry.ModBlockEntities;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,8 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Slowly draws three ingredients together into one (see {@link SiphonRecipe}), with no fuel: light, medium and dark
+ * Slowly draws three ingredients together into one, as its {@code caffeinecubed:siphoning} recipes say (see
+ * {@link SiphonRecipe}), with no fuel: light, medium and dark
  * roast grounds of the same quality into a Rainbow Blend of that quality, and three Rainbow Blends, a bucket of water
  * (or ice) and an enchanted golden apple into God's Coffee (or God's Ice Coffee). Each input slot takes a different
  * ingredient, in any order. Taking one out starts the blend over. A water bucket leaves its empty bucket behind in its
@@ -93,14 +95,14 @@ public class TripleAxisSiphonBlockEntity extends BaseContainerBlockEntity implem
     /**
      * Whether this stack can go in this input slot, alongside what is in the other two.
      */
-    public static boolean fits(Container container, int slot, ItemStack stack) {
+    public static boolean fits(Level level, Container container, int slot, ItemStack stack) {
         List<ItemStack> others = new ArrayList<>();
         for (int input : INPUTS) {
             if (input != slot) {
                 others.add(container.getItem(input));
             }
         }
-        return SiphonRecipe.fits(stack, others);
+        return SiphonRecipe.fits(level, stack, others);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, TripleAxisSiphonBlockEntity siphon) {
@@ -118,9 +120,9 @@ public class TripleAxisSiphonBlockEntity extends BaseContainerBlockEntity implem
      */
     private boolean work() {
         List<ItemStack> inputs = List.of(items.get(LEFT), items.get(TOP), items.get(RIGHT));
-        SiphonRecipe recipe = SiphonRecipe.find(inputs);
-        ItemStack result = SiphonRecipe.blend(inputs);
-        if (recipe == null || result.isEmpty()) {
+        SiphonRecipe recipe = SiphonRecipe.find(level, inputs);
+        ItemStack result = recipe == null ? ItemStack.EMPTY : recipe.make(inputs);
+        if (result.isEmpty()) {
             if (progress != 0) {
                 progress = 0;
                 setChanged();
@@ -168,7 +170,7 @@ public class TripleAxisSiphonBlockEntity extends BaseContainerBlockEntity implem
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        return slot != OUTPUT && fits(this, slot, stack);
+        return slot != OUTPUT && level != null && fits(level, this, slot, stack);
     }
 
     @Override

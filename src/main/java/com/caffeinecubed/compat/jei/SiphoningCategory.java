@@ -19,7 +19,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -89,7 +88,7 @@ public class SiphoningCategory implements IRecipeCategory<SiphoningRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SiphoningRecipe recipe, IFocusGroup focuses) {
         List<IRecipeSlotBuilder> qualitySlots = new ArrayList<>();
-        for (int i = 0; i < INPUT_SLOTS.length; i++) {
+        for (int i = 0; i < recipe.inputs().size(); i++) {
             List<ItemStack> stacks = recipe.inputs().get(i);
             ItemStack remainder = stacks.getFirst().getCraftingRemainingItem();
             IRecipeSlotBuilder input = builder.addInputSlot(INPUT_SLOTS[i][0], INPUT_SLOTS[i][1]).addItemStacks(stacks)
@@ -100,7 +99,7 @@ public class SiphoningCategory implements IRecipeCategory<SiphoningRecipe> {
                                     .withStyle(ChatFormatting.GRAY));
                         }
                     });
-            if (stacks.size() == recipe.outputs().size()) {
+            if (recipe.linked().get(i)) {
                 qualitySlots.add(input);
             }
         }
@@ -135,8 +134,7 @@ public class SiphoningCategory implements IRecipeCategory<SiphoningRecipe> {
 
     @Override
     public ResourceLocation getRegistryName(SiphoningRecipe recipe) {
-        return ResourceLocation.fromNamespaceAndPath(CaffeineCubed.MODID, "siphoning/"
-                + BuiltInRegistries.ITEM.getKey(recipe.recipe().result().asItem()).getPath());
+        return recipe.id();
     }
 
     private static boolean isOver(double mouseX, double mouseY, int x, int y, int width, int height) {

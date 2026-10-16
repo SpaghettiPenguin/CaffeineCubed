@@ -4,15 +4,13 @@ import com.caffeinecubed.CaffeineCubedConfig;
 import com.caffeinecubed.block.CoffeeMachineBlock;
 import com.caffeinecubed.block.CoffeeMachineSideAttachmentBlock;
 import com.caffeinecubed.client.CoffeeMachineBrewingSound;
-import com.caffeinecubed.coffee.BeanQuality;
-import com.caffeinecubed.coffee.Roast;
 import com.caffeinecubed.coffee.Syrup;
 import com.caffeinecubed.item.CoffeeGrinderItem;
 import com.caffeinecubed.menu.CoffeeMachineMenu;
+import com.caffeinecubed.recipe.CoffeeBrewingRecipe;
+import com.caffeinecubed.recipe.CoffeeRecipes;
 import com.caffeinecubed.registry.ModBlockEntities;
 import com.caffeinecubed.registry.ModBlocks;
-import com.caffeinecubed.registry.ModDataComponents;
-import com.caffeinecubed.registry.ModItems;
 import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +20,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Unit;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -38,7 +35,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Brews a cup of Coffee from a bucket of water and three coffee grounds of the same roast and quality, burning furnace
- * fuel while it brews. The empty bucket is left behind in the water slot. The coffee keeps the grounds' roast and
+ * fuel while it brews (its {@code caffeinecubed:brewing} recipes say which grounds, how many and what roast, and data
+ * packs can change them). The empty bucket is left behind in the water slot. The coffee keeps the grounds' roast and
  * quality, which decide what drinking it does.
  * <p>
  * A block of ice in the water slot instead brews Ice Coffee, the same in every other way. Each cup uses up one block.
@@ -74,7 +72,6 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
      * a coal (1,600) brews four cups.
      */
     public static final int BREWING_TIME = 400;
-    public static final int GROUNDS_PER_CUP = 3;
     /**
      * Ticks for the Grinder Attachment to grind one bean: half as long as a furnace takes to smelt an item.
      */
@@ -148,8 +145,11 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
         super(ModBlockEntities.COFFEE_MACHINE.get(), pos, state);
     }
 
-    public static boolean isGrounds(ItemStack stack) {
-        return CoffeeGrinderItem.GROUNDS.values().stream().anyMatch(stack::is);
+    /**
+     * Grounds the machine can brew: any that a brewing recipe uses.
+     */
+    public static boolean isGrounds(Level level, ItemStack stack) {
+        return CoffeeRecipes.brewing(level, stack).isPresent();
     }
 
     public static boolean isWater(ItemStack stack) {
@@ -179,27 +179,15 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
      * The cup these grounds brew, Coffee or (with ice) Ice Coffee, with or without milk and a syrup: it keeps their roast
      * and quality. Nothing if they aren't coffee grounds.
      */
-    public static ItemStack brew(ItemStack grounds, boolean iced, boolean milk, @Nullable Syrup syrup) {
-        if (!isGrounds(grounds)) {
-            return ItemStack.EMPTY;
-        }
-        ItemStack coffee = new ItemStack(iced ? ModItems.ICE_COFFEE.get() : ModItems.COFFEE.get());
-        coffee.set(ModDataComponents.BEAN_QUALITY.get(), BeanQuality.of(grounds));
-        coffee.set(ModDataComponents.ROAST.get(), Roast.of(grounds));
-        if (milk) {
-            coffee.set(ModDataComponents.MILK.get(), Unit.INSTANCE);
-        }
-        if (syrup != null) {
-            coffee.set(ModDataComponents.SYRUP.get(), syrup);
-        }
-        return coffee;
+    public static ItemStack brew(Level level, ItemStack grounds, boolean iced, boolean milk, @Nullable Syrup syrup) {
+        return CoffeeRecipes.brewing(level, grounds).map(recipe -> recipe.brew(grounds, iced, milk, syrup)).orElse(ItemStack.EMPTY);
     }
 
     /**
      * Beans the Grinder Attachment can grind: any roasted beans.
      */
-    public static boolean isRoastedBeans(ItemStack stack) {
-        return !CoffeeGrinderItem.grind(stack).isEmpty();
+    public static boolean isRoastedBeans(Level level, ItemStack stack) {
+        return !CoffeeGrinderItem.grind(level, stack).isEmpty();
     }
 
     public boolean hasGrinderAttachment() {
@@ -268,11 +256,15 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
     private boolean work() {
         ItemStack grounds = items.get(GROUNDS);
         ItemStack water = items.get(WATER);
+        CoffeeBrewingRecipe recipe = CoffeeRecipes.brewing(level, grounds).orElse(null);
+        if (recipe == null || grounds.getCount() < recipe.count() || !isWaterOrIce(water)) {
+            return false;
+        }
         boolean iced = isIce(water);
         boolean milk = brewsWithMilk();
         Syrup syrup = brewsWithSyrup();
-        ItemStack coffee = brew(grounds, iced, milk, syrup);
-        if (coffee.isEmpty() || grounds.getCount() < GROUNDS_PER_CUP || !isWaterOrIce(water) || !hasRoomFor(coffee)) {
+        ItemStack coffee = recipe.brew(grounds, iced, milk, syrup);
+        if (!hasRoomFor(coffee)) {
             return false;
         }
         if (fuel <= 0 && !burnFuelItem()) {
@@ -281,7 +273,7 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
         fuel--;
         if (++progress >= brewingTime()) {
             progress = 0;
-            grounds.shrink(GROUNDS_PER_CUP);
+            grounds.shrink(recipe.count());
             if (iced) {
                 water.shrink(1);
             } else {
@@ -310,7 +302,7 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
      */
     private void grind() {
         ItemStack beans = items.get(BEANS);
-        ItemStack grounds = CoffeeGrinderItem.grind(beans);
+        ItemStack grounds = CoffeeGrinderItem.grind(level, beans);
         if (grounds.isEmpty() || !hasGrinderAttachment()) {
             grindProgress = 0;
             return;
@@ -391,8 +383,8 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
         return switch (slot) {
             case WATER -> isWaterOrIce(stack);
             case FUEL -> isFuel(stack);
-            case GROUNDS -> isGrounds(stack);
-            case BEANS -> isRoastedBeans(stack) && hasGrinderAttachment();
+            case GROUNDS -> level != null && isGrounds(level, stack);
+            case BEANS -> level != null && isRoastedBeans(level, stack) && hasGrinderAttachment();
             case MILK -> isMilk(stack) && hasMilkFrother();
             case SYRUP -> Syrup.of(stack) != null && hasSyrupCompactor();
             default -> false;

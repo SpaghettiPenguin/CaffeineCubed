@@ -18,7 +18,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -148,9 +147,8 @@ public class BrewingCategory implements IRecipeCategory<BrewingRecipe> {
 
     @Override
     public ResourceLocation getRegistryName(BrewingRecipe recipe) {
-        return ResourceLocation.fromNamespaceAndPath(CaffeineCubed.MODID, "brewing/" + (recipe.iced() ? "iced/" : "")
-                + BuiltInRegistries.ITEM.getKey(recipe.grounds()).getPath()
-                + (recipe.milk() ? "_with_milk" : "") + (recipe.syrup() == null ? "" : "_with_" + recipe.syrup().getSerializedName() + "_syrup"));
+        return recipe.id().withSuffix((recipe.iced() ? "/iced" : "") + (recipe.milk() ? "/with_milk" : "")
+                + (recipe.syrup() == null ? "" : "/with_" + recipe.syrup().getSerializedName() + "_syrup"));
     }
 
     private static boolean isOver(double mouseX, double mouseY, int x, int y, int width, int height) {

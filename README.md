@@ -368,6 +368,59 @@ starting settings for new worlds by putting the file in `defaultconfigs/`.
 20 ticks is one second, and machines that burn fuel still only burn it while working, so a coal lasts 1600 ticks of
 work. Setting an effect's seconds to 0 turns that effect off. The guide book and this README describe the defaults.
 
+## Recipes and data packs
+
+What the Coffee Roaster, Coffee Grinder (and Grinder Attachment), Coffee Machine and Triple Axis Siphon make are
+recipes, JSON files like vanilla's, so a data pack can add, change or remove them. The mod's own are in
+`data/caffeinecubed/recipe/`: `roasting/`, `grinding/`, `brewing/` and `siphoning/`, three of each. A file at the same
+path in a data pack replaces one; to remove one, put `{"neoforge:conditions": [{"type": "neoforge:false"}]}` there.
+Players' games get the server's recipes when they join, and JEI shows whatever the recipes are. An ingredient can be an
+item (`{"item": ...}`) or a tag (`{"tag": ...}`).
+
+Quality works the same for every recipe: the result keeps the quality of what went in, if the result has one.
+
+**Roasting** and **grinding** turn one item into another, one at a time:
+
+```json
+{
+  "type": "caffeinecubed:roasting",
+  "ingredient": { "item": "caffeinecubed:raw_coffee_beans" },
+  "result": { "id": "caffeinecubed:light_roast_coffee_beans" }
+}
+```
+
+(`caffeinecubed:grinding` looks the same.) **Brewing** says which grounds the Coffee Machine takes, how many make a cup
+(`count`, 3 if left out) and which roast the cup is (`light`, `medium` or `dark`, which decides its roast effect). The
+cup is always Coffee, or Ice Coffee with ice, with milk and syrups added as usual:
+
+```json
+{
+  "type": "caffeinecubed:brewing",
+  "grounds": { "item": "caffeinecubed:light_roast_coffee_grounds" },
+  "count": 3,
+  "roast": "light"
+}
+```
+
+**Siphoning** takes one to three ingredients, each going in its own input slot in any order, with how many of each it
+uses (`count`, 1 if left out). Ingredients that have a quality must all share it. A water bucket leaves its empty
+bucket behind, as any item with a crafting remainder does:
+
+```json
+{
+  "type": "caffeinecubed:siphoning",
+  "ingredients": [
+    { "ingredient": { "item": "caffeinecubed:rainbow_blend" }, "count": 3 },
+    { "ingredient": { "item": "minecraft:water_bucket" } },
+    { "ingredient": { "item": "minecraft:enchanted_golden_apple" } }
+  ],
+  "result": { "id": "caffeinecubed:gods_coffee" }
+}
+```
+
+How long each machine takes is in the config, not the recipes. The crafting-table recipes for the machines, the
+grinder and the guide book are ordinary vanilla recipes in `data/caffeinecubed/recipe/`.
+
 ## Sounds and light
 
 Each machine sounds like what it does while it works, and glows as brightly as a lit furnace (light level 13), going

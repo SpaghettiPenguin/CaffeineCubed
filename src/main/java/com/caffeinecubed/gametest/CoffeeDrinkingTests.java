@@ -100,7 +100,7 @@ public final class CoffeeDrinkingTests {
         for (Map.Entry<Item, Roast> entry : grounds.entrySet()) {
             ItemStack ground = new ItemStack(entry.getKey());
             ground.set(ModDataComponents.BEAN_QUALITY.get(), BeanQuality.POOR);
-            ItemStack coffee = CoffeeMachineBlockEntity.brew(ground, false, false, null);
+            ItemStack coffee = CoffeeMachineBlockEntity.brew(helper.getLevel(), ground, false, false, null);
             helper.assertTrue(CupOfCoffeeItem.getRoast(coffee) == entry.getValue() && BeanQuality.of(coffee) == BeanQuality.POOR,
                     entry.getKey() + " should brew poor " + entry.getValue() + " roast coffee, but brewed " + coffee);
         }

@@ -128,7 +128,7 @@ public final class MilkFrotherTests {
 
     @GameTest(template = EMPTY)
     public static void coffeeWithMilkAddsThirtySecondsOfRegeneration(GameTestHelper helper) {
-        ItemStack milky = CoffeeMachineBlockEntity.brew(grounds(BeanQuality.DECENT, 3), false, true, null);
+        ItemStack milky = CoffeeMachineBlockEntity.brew(helper.getLevel(), grounds(BeanQuality.DECENT, 3), false, true, null);
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         milky.finishUsingItem(helper.getLevel(), player);
         MobEffectInstance regeneration = player.getEffect(MobEffects.REGENERATION);
@@ -138,9 +138,9 @@ public final class MilkFrotherTests {
                 "Milk should come on top of the usual Speed and roast effect");
 
         Player other = helper.makeMockPlayer(GameType.SURVIVAL);
-        CoffeeMachineBlockEntity.brew(grounds(BeanQuality.DECENT, 3), false, false, null).finishUsingItem(helper.getLevel(), other);
+        CoffeeMachineBlockEntity.brew(helper.getLevel(), grounds(BeanQuality.DECENT, 3), false, false, null).finishUsingItem(helper.getLevel(), other);
         helper.assertFalse(other.hasEffect(MobEffects.REGENERATION), "Coffee without milk shouldn't give Regeneration");
-        helper.assertFalse(ItemStack.isSameItemSameComponents(milky, CoffeeMachineBlockEntity.brew(grounds(BeanQuality.DECENT, 3), false, false, null)),
+        helper.assertFalse(ItemStack.isSameItemSameComponents(milky, CoffeeMachineBlockEntity.brew(helper.getLevel(), grounds(BeanQuality.DECENT, 3), false, false, null)),
                 "Coffee with and without milk shouldn't stack");
         helper.succeed();
     }

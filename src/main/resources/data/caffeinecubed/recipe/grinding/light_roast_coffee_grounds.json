@@ -1,0 +1,9 @@
+{
+  "type": "caffeinecubed:grinding",
+  "ingredient": {
+    "item": "caffeinecubed:light_roast_coffee_beans"
+  },
+  "result": {
+    "id": "caffeinecubed:light_roast_coffee_grounds"
+  }
+}

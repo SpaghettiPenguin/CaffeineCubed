@@ -1,0 +1,23 @@
+{
+  "type": "caffeinecubed:siphoning",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "caffeinecubed:light_roast_coffee_grounds"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "caffeinecubed:medium_roast_coffee_grounds"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "caffeinecubed:dark_roast_coffee_grounds"
+      }
+    }
+  ],
+  "result": {
+    "id": "caffeinecubed:rainbow_blend"
+  }
+}

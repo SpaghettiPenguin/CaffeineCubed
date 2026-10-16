@@ -1,7 +1,7 @@
 package com.caffeinecubed.menu;
 
-import com.caffeinecubed.block.entity.SiphonRecipe;
 import com.caffeinecubed.block.entity.TripleAxisSiphonBlockEntity;
+import com.caffeinecubed.recipe.SiphonRecipe;
 import com.caffeinecubed.registry.ModMenus;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 /**
  * The Triple Axis Siphon's interface: an input slot on the left, one on top and one on the right, each with an arrow
@@ -28,6 +29,7 @@ public class TripleAxisSiphonMenu extends AbstractContainerMenu {
 
     private final Container container;
     private final ContainerData data;
+    private final Level level;
 
     /**
      * The client's copy, which the server fills in through the slots and data.
@@ -42,9 +44,10 @@ public class TripleAxisSiphonMenu extends AbstractContainerMenu {
         checkContainerDataCount(data, 1);
         this.container = container;
         this.data = data;
-        addSlot(new InputSlot(container, TripleAxisSiphonBlockEntity.LEFT, 26, 57));
-        addSlot(new InputSlot(container, TripleAxisSiphonBlockEntity.TOP, 80, 19));
-        addSlot(new InputSlot(container, TripleAxisSiphonBlockEntity.RIGHT, 134, 57));
+        level = inventory.player.level();
+        addSlot(new InputSlot(level, container, TripleAxisSiphonBlockEntity.LEFT, 26, 57));
+        addSlot(new InputSlot(level, container, TripleAxisSiphonBlockEntity.TOP, 80, 19));
+        addSlot(new InputSlot(level, container, TripleAxisSiphonBlockEntity.RIGHT, 134, 57));
         addSlot(new Slot(container, TripleAxisSiphonBlockEntity.OUTPUT, 80, 57) {
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -67,13 +70,16 @@ public class TripleAxisSiphonMenu extends AbstractContainerMenu {
      * An input slot: it only takes an ingredient that can go with what is in the other two.
      */
     private static class InputSlot extends Slot {
-        InputSlot(Container container, int slot, int x, int y) {
+        private final Level level;
+
+        InputSlot(Level level, Container container, int slot, int x, int y) {
             super(container, slot, x, y);
+            this.level = level;
         }
 
         @Override
         public boolean mayPlace(ItemStack stack) {
-            return TripleAxisSiphonBlockEntity.fits(container, getContainerSlot(), stack);
+            return TripleAxisSiphonBlockEntity.fits(level, container, getContainerSlot(), stack);
         }
     }
 
@@ -97,7 +103,7 @@ public class TripleAxisSiphonMenu extends AbstractContainerMenu {
         boolean moved;
         if (index < MACHINE_SLOTS) {
             moved = moveItemStackTo(stack, INVENTORY_START, HOTBAR_END, index == TripleAxisSiphonBlockEntity.OUTPUT);
-        } else if (SiphonRecipe.isIngredient(stack)) {
+        } else if (SiphonRecipe.isIngredient(level, stack)) {
             moved = moveItemStackTo(stack, TripleAxisSiphonBlockEntity.LEFT, TripleAxisSiphonBlockEntity.RIGHT + 1, false);
         } else if (index < HOTBAR_START) {
             moved = moveItemStackTo(stack, HOTBAR_START, HOTBAR_END, false);

@@ -2,12 +2,9 @@ package com.caffeinecubed.block.entity;
 
 import com.caffeinecubed.CaffeineCubedConfig;
 import com.caffeinecubed.block.CoffeeRoasterBlock;
-import com.caffeinecubed.coffee.BeanQuality;
 import com.caffeinecubed.menu.CoffeeRoasterMenu;
+import com.caffeinecubed.recipe.CoffeeRecipes;
 import com.caffeinecubed.registry.ModBlockEntities;
-import com.caffeinecubed.registry.ModDataComponents;
-import com.caffeinecubed.registry.ModItems;
-import java.util.List;
 import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,7 +17,6 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -28,11 +24,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.registries.DeferredItem;
 
 /**
  * Works like a furnace for coffee beans: each bean comes out one roast darker, Raw to Light to Medium to Dark,
- * keeping its quality. It burns furnace fuel, but only while roasting, so one coal always roasts eight beans.
+ * keeping its quality (as its {@code caffeinecubed:roasting} recipes say, which data packs can change). It burns furnace fuel, but only while roasting, so one coal always roasts eight beans.
  */
 public class CoffeeRoasterBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer {
     public static final int INPUT = 0;
@@ -50,11 +45,7 @@ public class CoffeeRoasterBlockEntity extends BaseContainerBlockEntity implement
     public static int roastingTime() {
         return CaffeineCubedConfig.get(CaffeineCubedConfig.ROASTING_TIME);
     }
-    /**
-     * Every roast, lightest first. Roasting a bean turns it into the next one; Dark Roast is as far as it goes.
-     */
-    public static final List<DeferredItem<? extends Item>> ROASTS = List.of(ModItems.RAW_COFFEE_BEANS,
-            ModItems.LIGHT_ROAST_COFFEE_BEANS, ModItems.MEDIUM_ROAST_COFFEE_BEANS, ModItems.DARK_ROAST_COFFEE_BEANS);
+
     // Like a furnace: beans go in the top, fuel in the sides, and roasted beans come out of the bottom
     private static final int[] SLOTS_FOR_UP = {INPUT};
     private static final int[] SLOTS_FOR_SIDES = {FUEL};
@@ -103,23 +94,16 @@ public class CoffeeRoasterBlockEntity extends BaseContainerBlockEntity implement
         super(ModBlockEntities.COFFEE_ROASTER.get(), pos, state);
     }
 
-    public static boolean isRoastable(ItemStack stack) {
-        return !roast(stack).isEmpty();
+    public static boolean isRoastable(Level level, ItemStack stack) {
+        return CoffeeRecipes.roasting(level, stack).isPresent();
     }
 
     /**
-     * What roasting one of these beans makes: the next roast, of the same quality. Nothing if they can't be roasted
-     * any darker, or aren't beans at all.
+     * What roasting one of these beans makes, from the level's roasting recipes: the next roast, of the same quality.
+     * Nothing if they can't be roasted any darker, or aren't beans at all.
      */
-    public static ItemStack roast(ItemStack beans) {
-        for (int i = 0; i < ROASTS.size() - 1; i++) {
-            if (beans.is(ROASTS.get(i))) {
-                ItemStack roasted = new ItemStack(ROASTS.get(i + 1).get());
-                roasted.set(ModDataComponents.BEAN_QUALITY.get(), BeanQuality.of(beans));
-                return roasted;
-            }
-        }
-        return ItemStack.EMPTY;
+    public static ItemStack roast(Level level, ItemStack beans) {
+        return CoffeeRecipes.roasting(level, beans).map(recipe -> recipe.make(beans)).orElse(ItemStack.EMPTY);
     }
 
     public static boolean isFuel(ItemStack stack) {
@@ -139,7 +123,7 @@ public class CoffeeRoasterBlockEntity extends BaseContainerBlockEntity implement
      * @return whether it did
      */
     private boolean work() {
-        ItemStack result = roast(items.get(INPUT));
+        ItemStack result = roast(level, items.get(INPUT));
         if (result.isEmpty() || !hasRoomFor(result)) {
             return false;
         }
@@ -209,7 +193,7 @@ public class CoffeeRoasterBlockEntity extends BaseContainerBlockEntity implement
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
         return switch (slot) {
-            case INPUT -> isRoastable(stack);
+            case INPUT -> level != null && isRoastable(level, stack);
             case FUEL -> isFuel(stack);
             default -> false;
         };

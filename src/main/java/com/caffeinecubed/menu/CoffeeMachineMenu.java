@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 /**
  * The Coffee Machine's interface: the water bucket above the fuel on the left, with the flame between them, and the
@@ -30,6 +31,7 @@ public class CoffeeMachineMenu extends AbstractContainerMenu {
 
     private final Container container;
     private final ContainerData data;
+    private final Level level;
 
     /**
      * The client's copy, which the server fills in through the slots and data.
@@ -44,6 +46,7 @@ public class CoffeeMachineMenu extends AbstractContainerMenu {
         checkContainerDataCount(data, 7);
         this.container = container;
         this.data = data;
+        level = inventory.player.level();
         addSlot(new Slot(container, CoffeeMachineBlockEntity.WATER, 42, 17) {
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -59,7 +62,7 @@ public class CoffeeMachineMenu extends AbstractContainerMenu {
         addSlot(new Slot(container, CoffeeMachineBlockEntity.GROUNDS, 110, 17) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return CoffeeMachineBlockEntity.isGrounds(stack);
+                return CoffeeMachineBlockEntity.isGrounds(level, stack);
             }
         });
         addSlot(new Slot(container, CoffeeMachineBlockEntity.OUTPUT, 110, 57) {
@@ -71,7 +74,7 @@ public class CoffeeMachineMenu extends AbstractContainerMenu {
         addSlot(new Slot(container, CoffeeMachineBlockEntity.BEANS, 65, 17) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return hasGrinder() && CoffeeMachineBlockEntity.isRoastedBeans(stack);
+                return hasGrinder() && CoffeeMachineBlockEntity.isRoastedBeans(level, stack);
             }
 
             @Override
@@ -143,9 +146,9 @@ public class CoffeeMachineMenu extends AbstractContainerMenu {
             moved = moveItemStackTo(stack, CoffeeMachineBlockEntity.MILK, CoffeeMachineBlockEntity.MILK + 1, false);
         } else if (CoffeeMachineBlockEntity.isWaterOrIce(stack)) {
             moved = moveItemStackTo(stack, CoffeeMachineBlockEntity.WATER, CoffeeMachineBlockEntity.WATER + 1, false);
-        } else if (CoffeeMachineBlockEntity.isGrounds(stack)) {
+        } else if (CoffeeMachineBlockEntity.isGrounds(level, stack)) {
             moved = moveItemStackTo(stack, CoffeeMachineBlockEntity.GROUNDS, CoffeeMachineBlockEntity.GROUNDS + 1, false);
-        } else if (CoffeeMachineBlockEntity.isRoastedBeans(stack) && hasGrinder()) {
+        } else if (CoffeeMachineBlockEntity.isRoastedBeans(level, stack) && hasGrinder()) {
             moved = moveItemStackTo(stack, CoffeeMachineBlockEntity.BEANS, CoffeeMachineBlockEntity.BEANS + 1, false);
         } else if (CoffeeMachineBlockEntity.isFuel(stack)) {
             moved = moveItemStackTo(stack, CoffeeMachineBlockEntity.FUEL, CoffeeMachineBlockEntity.FUEL + 1, false);

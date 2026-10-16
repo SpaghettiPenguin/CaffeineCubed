@@ -1,0 +1,9 @@
+{
+  "type": "caffeinecubed:roasting",
+  "ingredient": {
+    "item": "caffeinecubed:medium_roast_coffee_beans"
+  },
+  "result": {
+    "id": "caffeinecubed:dark_roast_coffee_beans"
+  }
+}

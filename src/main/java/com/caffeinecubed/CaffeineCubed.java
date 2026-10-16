@@ -9,6 +9,7 @@ import com.caffeinecubed.registry.ModItems;
 import com.caffeinecubed.registry.ModLootConditions;
 import com.caffeinecubed.registry.ModLootFunctions;
 import com.caffeinecubed.registry.ModMenus;
+import com.caffeinecubed.registry.ModRecipes;
 import com.caffeinecubed.registry.ModSounds;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -31,6 +32,8 @@ public class CaffeineCubed {
         ModLootConditions.LOOT_CONDITIONS.register(modEventBus);
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         ModSounds.SOUND_EVENTS.register(modEventBus);
+        ModRecipes.RECIPE_TYPES.register(modEventBus);
+        ModRecipes.RECIPE_SERIALIZERS.register(modEventBus);
         modEventBus.addListener(ModCapabilities::register);
         // Each world (or server) has its own settings, which a server sends to the players who join
         modContainer.registerConfig(ModConfig.Type.SERVER, CaffeineCubedConfig.SPEC);

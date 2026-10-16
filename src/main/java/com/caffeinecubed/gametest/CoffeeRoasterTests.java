@@ -53,13 +53,13 @@ public final class CoffeeRoasterTests {
                 ModItems.MEDIUM_ROAST_COFFEE_BEANS.get(), ModItems.DARK_ROAST_COFFEE_BEANS.get());
         for (int i = 0; i < roasts.size() - 1; i++) {
             for (BeanQuality quality : BeanQuality.values()) {
-                ItemStack roasted = CoffeeRoasterBlockEntity.roast(beans(roasts.get(i), quality, 1));
+                ItemStack roasted = CoffeeRoasterBlockEntity.roast(helper.getLevel(), beans(roasts.get(i), quality, 1));
                 helper.assertTrue(roasted.is(roasts.get(i + 1)) && roasted.getCount() == 1,
                         "Roasting " + roasts.get(i) + " should make " + roasts.get(i + 1) + " but made " + roasted);
                 helper.assertTrue(BeanQuality.of(roasted) == quality, quality + " beans came out " + BeanQuality.of(roasted));
             }
         }
-        helper.assertTrue(CoffeeRoasterBlockEntity.roast(beans(ModItems.DARK_ROAST_COFFEE_BEANS.get(), BeanQuality.GREAT, 1)).isEmpty(),
+        helper.assertTrue(CoffeeRoasterBlockEntity.roast(helper.getLevel(), beans(ModItems.DARK_ROAST_COFFEE_BEANS.get(), BeanQuality.GREAT, 1)).isEmpty(),
                 "Dark roast is as dark as beans go");
         helper.succeed();
     }

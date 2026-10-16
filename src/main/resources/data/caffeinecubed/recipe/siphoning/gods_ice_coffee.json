@@ -1,0 +1,24 @@
+{
+  "type": "caffeinecubed:siphoning",
+  "ingredients": [
+    {
+      "ingredient": {
+        "item": "caffeinecubed:rainbow_blend"
+      },
+      "count": 3
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:ice"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:enchanted_golden_apple"
+      }
+    }
+  ],
+  "result": {
+    "id": "caffeinecubed:gods_ice_coffee"
+  }
+}

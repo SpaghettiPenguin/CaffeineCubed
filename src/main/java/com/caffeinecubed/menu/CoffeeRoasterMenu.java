@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 /**
  * The Coffee Roaster's interface, laid out like a furnace's: beans at the top left, fuel below them and the roasted
@@ -25,6 +26,7 @@ public class CoffeeRoasterMenu extends AbstractContainerMenu {
 
     private final Container container;
     private final ContainerData data;
+    private final Level level;
 
     /**
      * The client's copy, which the server fills in through the slots and data.
@@ -39,10 +41,11 @@ public class CoffeeRoasterMenu extends AbstractContainerMenu {
         checkContainerDataCount(data, 3);
         this.container = container;
         this.data = data;
+        level = inventory.player.level();
         addSlot(new Slot(container, CoffeeRoasterBlockEntity.INPUT, 56, 17) {
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return CoffeeRoasterBlockEntity.isRoastable(stack);
+                return CoffeeRoasterBlockEntity.isRoastable(level, stack);
             }
         });
         addSlot(new Slot(container, CoffeeRoasterBlockEntity.FUEL, 56, 53) {
@@ -89,7 +92,7 @@ public class CoffeeRoasterMenu extends AbstractContainerMenu {
         boolean moved;
         if (index < MACHINE_SLOTS) {
             moved = moveItemStackTo(stack, INVENTORY_START, HOTBAR_END, index == CoffeeRoasterBlockEntity.OUTPUT);
-        } else if (CoffeeRoasterBlockEntity.isRoastable(stack)) {
+        } else if (CoffeeRoasterBlockEntity.isRoastable(level, stack)) {
             moved = moveItemStackTo(stack, CoffeeRoasterBlockEntity.INPUT, CoffeeRoasterBlockEntity.INPUT + 1, false);
         } else if (CoffeeRoasterBlockEntity.isFuel(stack)) {
             moved = moveItemStackTo(stack, CoffeeRoasterBlockEntity.FUEL, CoffeeRoasterBlockEntity.FUEL + 1, false);
