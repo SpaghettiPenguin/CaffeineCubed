@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,lit=false": {
+      "model": "caffeinecubed:block/triple_axis_siphon"
+    },
+    "facing=north,lit=true": {
+      "model": "caffeinecubed:block/triple_axis_siphon"
+    },
+    "facing=east,lit=false": {
+      "model": "caffeinecubed:block/triple_axis_siphon",
+      "y": 90
+    },
+    "facing=east,lit=true": {
+      "model": "caffeinecubed:block/triple_axis_siphon",
+      "y": 90
+    },
+    "facing=south,lit=false": {
+      "model": "caffeinecubed:block/triple_axis_siphon",
+      "y": 180
+    },
+    "facing=south,lit=true": {
+      "model": "caffeinecubed:block/triple_axis_siphon",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": "caffeinecubed:block/triple_axis_siphon",
+      "y": 270
+    },
+    "facing=west,lit=true": {
+      "model": "caffeinecubed:block/triple_axis_siphon",
+      "y": 270
+    }
+  }
+}

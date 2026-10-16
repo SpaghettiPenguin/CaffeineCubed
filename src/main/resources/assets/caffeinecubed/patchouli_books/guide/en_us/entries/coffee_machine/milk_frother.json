@@ -1,0 +1,22 @@
+{
+  "name": "Milk Frother",
+  "icon": "caffeinecubed:milk_frother",
+  "category": "caffeinecubed:coffee_machine",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:milk_frother",
+      "link_recipe": false,
+      "text": "Goes on the $(thing)right$() of a Coffee Machine, as you face its front. It adds a $(thing)milk slot$() in the top right."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Milk is optional. If a $(item)Milk Bucket$() is in the slot when a cup finishes, the cup is made $(thing)with milk$(), which adds 30 seconds of $(thing)Regeneration$().$(br2)The empty bucket stays in the slot. A hopper on the frother feeds it."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "caffeinecubed:milk_frother"
+    }
+  ]
+}

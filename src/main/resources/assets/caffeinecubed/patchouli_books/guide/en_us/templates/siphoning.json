@@ -1,0 +1,46 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "caffeinecubed:textures/gui/jei/siphoning.png",
+      "x": -1,
+      "y": 4,
+      "u": 0,
+      "v": 0,
+      "width": 118,
+      "height": 66,
+      "texture_width": 118,
+      "texture_height": 66
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#left",
+      "x": 0,
+      "y": 45
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#top",
+      "x": 50,
+      "y": 5
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#right",
+      "x": 100,
+      "y": 45
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "x": 50,
+      "y": 45
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "x": 0,
+      "y": 76
+    }
+  ]
+}

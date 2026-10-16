@@ -1,0 +1,40 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "caffeinecubed:textures/gui/jei/coffee_grinding.png",
+      "x": 14,
+      "y": 4,
+      "u": 0,
+      "v": 0,
+      "width": 88,
+      "height": 50,
+      "texture_width": 88,
+      "texture_height": 50
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input",
+      "x": 17,
+      "y": 7
+    },
+    {
+      "type": "patchouli:item",
+      "item": "caffeinecubed:coffee_grinder",
+      "x": 17,
+      "y": 31
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "x": 77,
+      "y": 19
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "x": 0,
+      "y": 60
+    }
+  ]
+}

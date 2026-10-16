@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "caffeinecubed:block/grinder_attachment"
+    }
+  }
+}

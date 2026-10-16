@@ -1,0 +1,24 @@
+{
+  "name": "Welcome",
+  "icon": "caffeinecubed:coffee",
+  "category": "caffeinecubed:basics",
+  "sortnum": 0,
+  "priority": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Caffeine Cubed",
+      "text": "Welcome to $(thing)Caffeine Cubed$(), a mod all about coffee: growing it, roasting it, grinding it, brewing it and, of course, drinking it.$(br2)Every cup starts as a single $(item)Raw Coffee Bean$(), and every bean has a $(l:caffeinecubed:basics/bean_quality)quality$(/l) that follows it all the way to the cup."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "From Bush to Cup",
+      "text": "$(li)Find $(l:caffeinecubed:growing/raw_coffee_beans)raw beans$(/l) in jungle grass.$(li)Grow a $(l:caffeinecubed:growing/coffee_bush)Coffee Bush$(/l).$(li)Roast the beans in a $(l:caffeinecubed:roasting/coffee_roaster)Coffee Roaster$(/l).$(li)Grind them with a $(l:caffeinecubed:roasting/coffee_grinder)Coffee Grinder$(/l).$(li)Brew a cup in the $(l:caffeinecubed:coffee_machine/coffee_machine)Coffee Machine$(/l).$(li)$(l:caffeinecubed:drinks/coffee)Drink it$(/l)!"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "caffeinecubed:guide_book",
+      "text": "Lost this book? Make another from a book and a raw coffee bean."
+    }
+  ]
+}

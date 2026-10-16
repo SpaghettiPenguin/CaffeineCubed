@@ -1,0 +1,10 @@
+{
+  "values": [
+    "caffeinecubed:coffee_roaster",
+    "caffeinecubed:coffee_machine",
+    "caffeinecubed:grinder_attachment",
+    "caffeinecubed:milk_frother",
+    "caffeinecubed:syrup_compactor",
+    "caffeinecubed:triple_axis_siphon"
+  ]
+}

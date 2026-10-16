@@ -1,0 +1,22 @@
+{
+  "name": "Rainbow Blend",
+  "icon": "caffeinecubed:rainbow_blend",
+  "category": "caffeinecubed:siphon",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "caffeinecubed:siphoning",
+      "left": "caffeinecubed:light_roast_coffee_grounds[caffeinecubed:bean_quality=\"poor\"],caffeinecubed:light_roast_coffee_grounds[caffeinecubed:bean_quality=\"decent\"],caffeinecubed:light_roast_coffee_grounds[caffeinecubed:bean_quality=\"good\"],caffeinecubed:light_roast_coffee_grounds[caffeinecubed:bean_quality=\"great\"]",
+      "top": "caffeinecubed:medium_roast_coffee_grounds[caffeinecubed:bean_quality=\"poor\"],caffeinecubed:medium_roast_coffee_grounds[caffeinecubed:bean_quality=\"decent\"],caffeinecubed:medium_roast_coffee_grounds[caffeinecubed:bean_quality=\"good\"],caffeinecubed:medium_roast_coffee_grounds[caffeinecubed:bean_quality=\"great\"]",
+      "right": "caffeinecubed:dark_roast_coffee_grounds[caffeinecubed:bean_quality=\"poor\"],caffeinecubed:dark_roast_coffee_grounds[caffeinecubed:bean_quality=\"decent\"],caffeinecubed:dark_roast_coffee_grounds[caffeinecubed:bean_quality=\"good\"],caffeinecubed:dark_roast_coffee_grounds[caffeinecubed:bean_quality=\"great\"]",
+      "output": "caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"poor\"],caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"decent\"],caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"good\"],caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"great\"]",
+      "text": "One each of $(item)Light$(), $(item)Medium$() and $(item)Dark Roast Coffee Grounds$(), all the same quality, make a $(item)Rainbow Blend$() of that quality."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:rainbow_blend",
+      "link_recipe": false,
+      "text": "Three of these go into $(l:caffeinecubed:siphon/gods_coffee)God's Coffee$(/l)."
+    }
+  ]
+}

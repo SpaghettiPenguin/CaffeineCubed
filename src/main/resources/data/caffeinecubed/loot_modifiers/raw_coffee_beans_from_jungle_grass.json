@@ -1,0 +1,38 @@
+{
+  "type": "neoforge:add_table",
+  "conditions": [
+    {
+      "condition": "minecraft:any_of",
+      "terms": [
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:blocks/short_grass"
+        },
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:blocks/fern"
+        }
+      ]
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "items": "minecraft:shears"
+        }
+      }
+    },
+    {
+      "condition": "minecraft:location_check",
+      "predicate": {
+        "biomes": "#minecraft:is_jungle"
+      }
+    },
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.03125
+    }
+  ],
+  "table": "caffeinecubed:gameplay/raw_coffee_beans_from_jungle_grass"
+}

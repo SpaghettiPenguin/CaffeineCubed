@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "caffeinecubed:item/dark_roast_coffee_beans"
+  }
+}

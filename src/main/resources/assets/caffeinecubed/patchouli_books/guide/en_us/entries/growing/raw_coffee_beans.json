@@ -1,0 +1,18 @@
+{
+  "name": "Raw Coffee Beans",
+  "icon": "caffeinecubed:raw_coffee_beans",
+  "category": "caffeinecubed:growing",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:raw_coffee_beans",
+      "link_recipe": false,
+      "text": "Your first beans come from the jungle. Breaking $(thing)grass$() or $(thing)ferns$() in a jungle sometimes drops a $(item)Raw Coffee Bean$(): about 1 time in 32.$(br2)Fortune helps. Shears don't drop any."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Beans found in the jungle are always $(#b8860b)Great$(), since the jungle is where coffee grows best.$(br2)Plant a raw bean on grass or dirt to grow a $(l:caffeinecubed:growing/coffee_bush)Coffee Bush$(/l). Raw beans can also go in a composter."
+    }
+  ]
+}

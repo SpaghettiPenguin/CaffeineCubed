@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "caffeinecubed:block/syrup_compactor"
+    },
+    "facing=east": {
+      "model": "caffeinecubed:block/syrup_compactor",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "caffeinecubed:block/syrup_compactor",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "caffeinecubed:block/syrup_compactor",
+      "y": 270
+    }
+  }
+}

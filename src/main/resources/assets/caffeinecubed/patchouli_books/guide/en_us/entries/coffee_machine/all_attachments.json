@@ -1,0 +1,38 @@
+{
+  "name": "All Together",
+  "icon": "caffeinecubed:milk_frother",
+  "category": "caffeinecubed:coffee_machine",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:multiblock",
+      "name": "A Full Coffee Machine",
+      "enable_visualize": false,
+      "multiblock": {
+        "mapping": {
+          "0": "caffeinecubed:coffee_machine[facing=south]",
+          "G": "caffeinecubed:grinder_attachment",
+          "F": "caffeinecubed:milk_frother[facing=south]",
+          "C": "caffeinecubed:syrup_compactor[facing=south]"
+        },
+        "pattern": [
+          [
+            " ",
+            "G",
+            " "
+          ],
+          [
+            "C",
+            "0",
+            "F"
+          ]
+        ]
+      },
+      "text": "All three attachments can go on one machine at once."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "The machine's screen shows exactly the slots its attachments add. Take an attachment off and its slot stays until you empty it, so nothing gets stuck.$(br2)Attachments drop off if the machine is removed."
+    }
+  ]
+}

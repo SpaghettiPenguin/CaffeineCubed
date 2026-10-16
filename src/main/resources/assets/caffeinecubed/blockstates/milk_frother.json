@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "caffeinecubed:block/milk_frother"
+    },
+    "facing=east": {
+      "model": "caffeinecubed:block/milk_frother",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "caffeinecubed:block/milk_frother",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "caffeinecubed:block/milk_frother",
+      "y": 270
+    }
+  }
+}

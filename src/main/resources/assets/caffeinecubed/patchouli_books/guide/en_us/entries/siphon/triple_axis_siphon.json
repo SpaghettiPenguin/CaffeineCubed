@@ -1,0 +1,22 @@
+{
+  "name": "Triple Axis Siphon",
+  "icon": "caffeinecubed:triple_axis_siphon",
+  "category": "caffeinecubed:siphon",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:triple_axis_siphon",
+      "link_recipe": false,
+      "text": "The final machine. It slowly draws three ingredients together into one, with $(thing)no fuel$(). Each takes 40 seconds."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(li)One ingredient goes in each slot, in any order.$(li)Ingredients with a quality must all share it, and the result keeps it.$(li)Taking one out starts over.$(li)Hoppers feed each arm from its side and the top from above, and take the result out below."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "caffeinecubed:triple_axis_siphon"
+    }
+  ]
+}

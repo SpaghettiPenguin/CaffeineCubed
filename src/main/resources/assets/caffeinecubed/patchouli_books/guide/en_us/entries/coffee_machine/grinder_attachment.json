@@ -1,0 +1,22 @@
+{
+  "name": "Grinder Attachment",
+  "icon": "caffeinecubed:grinder_attachment",
+  "category": "caffeinecubed:coffee_machine",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:grinder_attachment",
+      "link_recipe": false,
+      "text": "Goes on $(thing)top$() of a Coffee Machine, and nowhere else. It adds a $(thing)bean slot$() to the machine."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Roasted beans in the bean slot are ground into the grounds slot, keeping their roast and quality.$(br2)It takes 5 seconds a bean and needs no fuel or durability. A hopper on the attachment feeds the bean slot."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "caffeinecubed:grinder_attachment"
+    }
+  ]
+}

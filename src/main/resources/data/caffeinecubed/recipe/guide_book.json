@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "caffeinecubed:raw_coffee_beans"
+    }
+  ],
+  "result": {
+    "id": "caffeinecubed:guide_book",
+    "count": 1
+  }
+}

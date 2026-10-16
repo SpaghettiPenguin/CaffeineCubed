@@ -1,0 +1,21 @@
+{
+  "name": "Caffeine Cubed Guide",
+  "landing_text": "Welcome to the $(thing)Caffeine Cubed$() guide!$(br2)Every cup of coffee starts as a raw bean from the jungle. Turn the pages to learn how to grow, roast, grind and brew it.",
+  "use_resource_pack": true,
+  "dont_generate_book": true,
+  "custom_book_item": "caffeinecubed:guide_book",
+  "book_texture": "caffeinecubed:textures/gui/book/guide.png",
+  "filler_texture": "caffeinecubed:textures/gui/book/filler.png",
+  "text_color": "2B1D12",
+  "header_color": "1E3932",
+  "nameplate_color": "F4EAD8",
+  "link_color": "2F7D4F",
+  "link_hover_color": "7A4C2C",
+  "progress_bar_color": "4FA36D",
+  "progress_bar_background": "D9C4A5",
+  "show_toasts": false,
+  "macros": {
+    "$(item)": "$(#7a4c2c)",
+    "$(thing)": "$(#2f7d4f)"
+  }
+}

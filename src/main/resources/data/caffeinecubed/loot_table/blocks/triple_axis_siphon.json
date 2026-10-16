@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "caffeinecubed:triple_axis_siphon"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "caffeinecubed:blocks/triple_axis_siphon"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "God's Coffee",
+  "icon": "caffeinecubed:gods_coffee",
+  "category": "caffeinecubed:siphon",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "caffeinecubed:siphoning",
+      "left": "caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"poor\"]#3,caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"decent\"]#3,caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"good\"]#3,caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"great\"]#3",
+      "top": "minecraft:water_bucket",
+      "right": "minecraft:enchanted_golden_apple",
+      "output": "caffeinecubed:gods_coffee[caffeinecubed:bean_quality=\"poor\"],caffeinecubed:gods_coffee[caffeinecubed:bean_quality=\"decent\"],caffeinecubed:gods_coffee[caffeinecubed:bean_quality=\"good\"],caffeinecubed:gods_coffee[caffeinecubed:bean_quality=\"great\"]",
+      "text": "3 $(item)Rainbow Blends$(), a $(item)Water Bucket$() and an $(item)Enchanted Golden Apple$(). The empty bucket is left behind."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "God's Coffee",
+      "text": "The most powerful coffee there is. It gives $(thing)six effects$() at once:$(li)Speed II$(li)Regeneration$(li)Night Vision$(li)Resistance$(li)Strength$(li)Haste$(br2)All of them last the same time, set by its quality."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "How Long",
+      "text": "$(li)$(#b3322c)Poor$(): 0:30$(li)Decent: 1:00$(li)$(#3b8a2e)Good$(): 1:30$(li)$(#b8860b)Great$(): 2:00$(br2)With this many effects at once, even the best only lasts two minutes."
+    },
+    {
+      "type": "caffeinecubed:siphoning",
+      "left": "caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"poor\"]#3,caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"decent\"]#3,caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"good\"]#3,caffeinecubed:rainbow_blend[caffeinecubed:bean_quality=\"great\"]#3",
+      "top": "minecraft:ice",
+      "right": "minecraft:enchanted_golden_apple",
+      "output": "caffeinecubed:gods_ice_coffee[caffeinecubed:bean_quality=\"poor\"],caffeinecubed:gods_ice_coffee[caffeinecubed:bean_quality=\"decent\"],caffeinecubed:gods_ice_coffee[caffeinecubed:bean_quality=\"good\"],caffeinecubed:gods_ice_coffee[caffeinecubed:bean_quality=\"great\"]",
+      "text": "$(item)God's Ice Coffee$(): the same with $(item)Ice$() instead of water. $(thing)Fire Resistance$() replaces Speed II."
+    }
+  ]
+}

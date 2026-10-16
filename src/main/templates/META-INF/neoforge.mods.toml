@@ -1,0 +1,49 @@
+# Mod metadata read by NeoForge. The placeholder values are filled in from gradle.properties at build time.
+# Field reference: https://docs.neoforged.net/docs/gettingstarted/modfiles#neoforgemodstoml
+
+modLoader="javafml" #mandatory
+loaderVersion="${loader_version_range}" #mandatory
+license="${mod_license}"
+
+# A URL to refer people to when problems occur with this mod
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+
+[[mods]] #mandatory
+modId="${mod_id}" #mandatory
+version="${mod_version}" #mandatory
+displayName="${mod_name}" #mandatory
+
+# A URL for the "homepage" for this mod, displayed in the mod UI
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+
+# A file name (in the root of the mod JAR) containing a logo for display
+#logoFile="caffeinecubed.png" #optional
+
+# The authors of the mod, displayed in the mod UI
+#authors=""
+
+description='''
+Grow, roast, brew and drink coffee.
+'''
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+# The guide book is a Patchouli book
+[[dependencies.${mod_id}]]
+    modId="patchouli"
+    type="required"
+    versionRange="[1.21.1-93,)"
+    ordering="NONE"
+    side="BOTH"

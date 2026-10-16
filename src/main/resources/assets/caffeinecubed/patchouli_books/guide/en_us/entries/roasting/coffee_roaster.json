@@ -1,0 +1,28 @@
+{
+  "name": "Coffee Roaster",
+  "icon": "caffeinecubed:coffee_roaster",
+  "category": "caffeinecubed:roasting",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:coffee_roaster",
+      "link_recipe": false,
+      "text": "Roasts beans one roast darker, burning furnace fuel. Beans go in the top, fuel below, and the roasted beans come out on the right."
+    },
+    {
+      "type": "caffeinecubed:roasting",
+      "input": "caffeinecubed:raw_coffee_beans,caffeinecubed:light_roast_coffee_beans,caffeinecubed:medium_roast_coffee_beans",
+      "output": "caffeinecubed:light_roast_coffee_beans,caffeinecubed:medium_roast_coffee_beans,caffeinecubed:dark_roast_coffee_beans",
+      "text": "Raw beans roast to $(item)Light$(), light to $(item)Medium$(), and medium to $(item)Dark$(). Dark is as dark as they go."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(li)Roasting keeps the beans' $(l:caffeinecubed:basics/bean_quality)quality$(/l).$(li)Each bean takes 10 seconds.$(li)Fuel only burns while roasting: one coal roasts exactly 8 beans.$(li)Hoppers work like on a furnace."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "caffeinecubed:coffee_roaster"
+    }
+  ]
+}

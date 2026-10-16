@@ -1,0 +1,18 @@
+{
+  "name": "Ice Coffee",
+  "icon": "caffeinecubed:ice_coffee",
+  "category": "caffeinecubed:drinks",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:ice_coffee",
+      "link_recipe": false,
+      "text": "Brewed with a block of $(item)Ice$() in the Coffee Machine's water slot instead of a water bucket."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "It works just like Coffee, with the same roasts, milk and syrups, except it gives $(thing)Fire Resistance$() instead of Speed, for 1 to 4 minutes by quality.$(br2)Ice Coffee and Coffee don't stack together."
+    }
+  ]
+}

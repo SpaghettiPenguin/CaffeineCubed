@@ -1,0 +1,18 @@
+{
+  "name": "Bean Quality",
+  "icon": "caffeinecubed:raw_coffee_beans",
+  "category": "caffeinecubed:basics",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "Bean Quality",
+      "text": "Every bean has a $(thing)quality$(): $(#b3322c)Poor$(), Decent, $(#3b8a2e)Good$() or $(#b8860b)Great$(). It shows in the bean's tooltip.$(br2)A bush's beans get their quality from the $(thing)biome$() the bush grows in, not from the bean it grew from. So where you plant matters!"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Best Biomes",
+      "text": "$(li)$(#b8860b)Great$(): jungles$(li)$(#3b8a2e)Good$(): savannas$(li)Decent: everywhere else, like plains and forests$(li)$(#b3322c)Poor$(): cold places, like taigas and snowy biomes$(br2)Quality is kept through roasting, grinding and brewing, and better coffee lasts longer when you drink it."
+    }
+  ]
+}

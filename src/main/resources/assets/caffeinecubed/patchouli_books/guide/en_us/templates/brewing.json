@@ -1,0 +1,40 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "caffeinecubed:textures/gui/jei/coffee_brewing.png",
+      "x": 16,
+      "y": 4,
+      "u": 0,
+      "v": 0,
+      "width": 84,
+      "height": 68,
+      "texture_width": 102,
+      "texture_height": 68
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#water",
+      "x": 19,
+      "y": 7
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#grounds",
+      "x": 57,
+      "y": 7
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "x": 57,
+      "y": 47
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "x": 0,
+      "y": 78
+    }
+  ]
+}

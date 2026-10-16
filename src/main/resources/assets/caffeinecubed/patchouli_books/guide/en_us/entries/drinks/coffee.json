@@ -1,0 +1,19 @@
+{
+  "name": "Coffee",
+  "icon": "caffeinecubed:coffee",
+  "category": "caffeinecubed:drinks",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:coffee",
+      "link_recipe": false,
+      "text": "Drink it to use up the cup and get $(thing)Speed I$(), for longer the better its quality:$(li)$(#b3322c)Poor$(): 1:00$(li)Decent: 2:00$(li)$(#3b8a2e)Good$(): 3:00$(li)$(#b8860b)Great$(): 4:00"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Roasts",
+      "text": "Each roast adds 1 minute of another effect:$(li)$(item)Light$(): Slow Falling$(li)$(item)Medium$(): Haste$(li)$(item)Dark$(): Strength$(br2)Milk adds 30 seconds of Regeneration, and a syrup a minute of its effect. Cups stack to 16, only with the same kind."
+    }
+  ]
+}

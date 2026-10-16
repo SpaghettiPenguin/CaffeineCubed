@@ -1,0 +1,34 @@
+{
+  "name": "Coffee Machine",
+  "icon": "caffeinecubed:coffee_machine",
+  "category": "caffeinecubed:coffee_machine",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:coffee_machine",
+      "link_recipe": false,
+      "text": "Brews a cup of $(item)Coffee$() from a $(thing)water bucket$(), $(thing)3 grounds$() of the same roast and quality, and $(thing)furnace fuel$()."
+    },
+    {
+      "type": "caffeinecubed:brewing",
+      "water": "minecraft:water_bucket",
+      "grounds": "caffeinecubed:light_roast_coffee_grounds#3,caffeinecubed:medium_roast_coffee_grounds#3,caffeinecubed:dark_roast_coffee_grounds#3",
+      "output": "caffeinecubed:coffee",
+      "text": "A cup takes 20 seconds. One coal brews 4 cups."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(li)The coffee keeps the grounds' roast and quality.$(li)The empty bucket stays in the water slot: put in a new water bucket for each cup.$(li)A block of $(item)Ice$() instead brews $(l:caffeinecubed:drinks/ice_coffee)Ice Coffee$(/l), one block per cup.$(li)Hoppers: grounds in the top, water, ice and fuel in the sides, coffee out the bottom."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Attachments",
+      "text": "Three attachments add slots to the machine's screen:$(li)$(l:caffeinecubed:coffee_machine/grinder_attachment)Grinder Attachment$(/l), on top$(li)$(l:caffeinecubed:coffee_machine/milk_frother)Milk Frother$(/l), on its right$(li)$(l:caffeinecubed:coffee_machine/syrup_compactor)Syrup Compactor$(/l), on its left$(br2)Left and right are as you face the machine's front."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "caffeinecubed:coffee_machine"
+    }
+  ]
+}

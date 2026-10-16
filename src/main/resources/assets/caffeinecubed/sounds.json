@@ -1,0 +1,8 @@
+{
+  "block.coffee_machine.brewing": {
+    "subtitle": "subtitles.caffeinecubed.block.coffee_machine.brewing",
+    "sounds": [
+      "caffeinecubed:block/coffee_machine_brewing"
+    ]
+  }
+}

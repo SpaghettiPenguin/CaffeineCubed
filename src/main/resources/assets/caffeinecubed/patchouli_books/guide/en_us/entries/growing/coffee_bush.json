@@ -1,0 +1,42 @@
+{
+  "name": "Coffee Bush",
+  "icon": "caffeinecubed:raw_coffee_beans",
+  "category": "caffeinecubed:growing",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:multiblock",
+      "name": "Coffee Bush",
+      "enable_visualize": false,
+      "multiblock": {
+        "mapping": {
+          "0": "caffeinecubed:coffee_bush[age=3]",
+          "G": "minecraft:grass_block"
+        },
+        "pattern": [
+          [
+            "   ",
+            " 0 ",
+            "   "
+          ],
+          [
+            "GGG",
+            "GGG",
+            "GGG"
+          ]
+        ]
+      },
+      "text": "A ripe Coffee Bush, covered in red coffee cherries."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Growing",
+      "text": "A Coffee Bush grows like a sweet berry bush, through four stages:$(li)a small $(thing)starter bush$()$(li)a full $(thing)bush$()$(li)green, unripe $(thing)cherries$()$(li)$(thing)ripe$() red cherries$(br2)It needs light to grow, and bone meal speeds it up."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Picking",
+      "text": "$(thing)Right-click$() a ripe bush to pick 1-3 $(item)Raw Coffee Beans$(). The bush stays and fruits again.$(br2)The beans' quality depends on the bush's $(l:caffeinecubed:basics/bean_quality)biome$(/l). Breaking a ripe bush drops beans too; younger bushes drop nothing.$(br2)Walking through it slows you down, but it has no thorns."
+    }
+  ]
+}

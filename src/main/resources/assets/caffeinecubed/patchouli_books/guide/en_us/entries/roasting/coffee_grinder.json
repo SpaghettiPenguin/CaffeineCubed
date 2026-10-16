@@ -1,0 +1,28 @@
+{
+  "name": "Coffee Grinder",
+  "icon": "caffeinecubed:coffee_grinder",
+  "category": "caffeinecubed:roasting",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:coffee_grinder",
+      "link_recipe": false,
+      "text": "A hand tool that grinds roasted beans into grounds. Hold it in your $(thing)main hand$() with roasted beans in your $(thing)off hand$(), then $(thing)hold right-click$()."
+    },
+    {
+      "type": "caffeinecubed:grinding",
+      "input": "caffeinecubed:light_roast_coffee_beans,caffeinecubed:medium_roast_coffee_beans,caffeinecubed:dark_roast_coffee_beans",
+      "output": "caffeinecubed:light_roast_coffee_grounds,caffeinecubed:medium_roast_coffee_grounds,caffeinecubed:dark_roast_coffee_grounds",
+      "text": "One bean is ground every second. The grounds keep the beans' roast and quality."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(li)32 uses: each bean costs 1 durability.$(li)Raw beans need roasting first.$(li)Grounds go into your inventory, or drop at your feet if it's full.$(br2)A $(l:caffeinecubed:coffee_machine/grinder_attachment)Grinder Attachment$(/l) on a Coffee Machine grinds for free."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "caffeinecubed:coffee_grinder"
+    }
+  ]
+}

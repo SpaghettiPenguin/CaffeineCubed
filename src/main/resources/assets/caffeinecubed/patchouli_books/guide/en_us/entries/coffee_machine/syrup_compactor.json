@@ -1,0 +1,23 @@
+{
+  "name": "Syrup Compactor",
+  "icon": "caffeinecubed:syrup_compactor",
+  "category": "caffeinecubed:coffee_machine",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "caffeinecubed:syrup_compactor",
+      "link_recipe": false,
+      "text": "Goes on the $(thing)left$() of a Coffee Machine, as you face its front. It adds a $(thing)syrup slot$() in the bottom left."
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Syrups",
+      "text": "Also optional: one ingredient is used per cup, adding 1 minute of its effect:$(li)$(item)Pufferfish$(): Water Breathing$(li)$(item)Fermented Spider Eye$(): Invisibility$(li)$(item)Golden Carrot$(): Night Vision$(li)$(item)Rabbit's Foot$(): Jump Boost$(br2)A cup can have milk and a syrup."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "caffeinecubed:syrup_compactor"
+    }
+  ]
+}
