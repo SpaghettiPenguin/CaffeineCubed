@@ -5,25 +5,31 @@ modLoader="javafml" #mandatory
 loaderVersion="${loader_version_range}" #mandatory
 license="${mod_license}"
 
-# A URL to refer people to when problems occur with this mod
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+# Where to report problems with this mod
+issueTrackerURL="https://github.com/SpaghettiPenguin/CaffeineCubed/issues"
 
 [[mods]] #mandatory
 modId="${mod_id}" #mandatory
 version="${mod_version}" #mandatory
 displayName="${mod_name}" #mandatory
 
-# A URL for the "homepage" for this mod, displayed in the mod UI
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+# The mod's homepage, shown in the mods list
+displayURL="https://github.com/SpaghettiPenguin/CaffeineCubed"
 
-# A file name (in the root of the mod JAR) containing a logo for display
-#logoFile="caffeinecubed.png" #optional
+# The logo shown in the mods list (in the root of the jar), kept sharp rather than blurred since it's pixel art
+logoFile="caffeinecubed.png"
+logoBlur=false
 
-# The authors of the mod, displayed in the mod UI
-#authors=""
+authors="SpaghettiPenguin"
+
+credits="Coffee Machine brewing sound: a modified version of \"Coffee machine (SoundAction 024)\" by alexarje (freesound.org/s/721706), CC BY 4.0"
 
 description='''
-Grow, roast, brew and drink coffee.
+A mod for Minecraft focused on growing, grinding, and brewing coffee.
+
+Find raw coffee beans in the jungle and grow coffee bushes, whose beans take their quality from the biome they grow in. Roast them in the Coffee Roaster, grind them with the Coffee Grinder, and brew Coffee or Ice Coffee in the Coffee Machine, adding a Grinder Attachment, Milk Frother and Syrup Compactor to make it do more. The Triple Axis Siphon makes Rainbow Blend and the legendary God's Coffee.
+
+Every cup's effects depend on its beans' quality and roast. Craft a book with a raw coffee bean for the guide that explains it all.
 '''
 
 [[dependencies.${mod_id}]]

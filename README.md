@@ -1,3 +1,5 @@
+<p align="center"><img src="src/main/resources/caffeinecubed.png" alt="Caffeine Cubed logo" width="160"></p>
+
 # Caffeine Cubed
 
 A mod for Minecraft focused on growing, grinding, and brewing coffee. Made for NeoForge, Minecraft 1.21.1.
