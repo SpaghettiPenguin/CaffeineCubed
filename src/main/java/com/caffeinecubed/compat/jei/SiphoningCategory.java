@@ -55,7 +55,7 @@ public class SiphoningCategory implements IRecipeCategory<SiphoningRecipe> {
         panel = gui.drawableBuilder(PANEL, 0, 0, WIDTH, HEIGHT).setTextureSize(WIDTH, HEIGHT).build();
         icon = gui.createDrawableItemLike(ModItems.TRIPLE_AXIS_SIPHON.get());
         // The three arrows fill towards the middle together over one blend's time, like in the siphon
-        int time = TripleAxisSiphonBlockEntity.SIPHONING_TIME;
+        int time = TripleAxisSiphonBlockEntity.siphoningTime();
         topArrow = gui.createAnimatedDrawable(gui.createDrawable(SIPHON_GUI, 176, 0, 16, 17), time, IDrawableAnimated.StartDirection.TOP, false);
         leftArrow = gui.createAnimatedDrawable(gui.createDrawable(SIPHON_GUI, 176, 17, 24, 16), time, IDrawableAnimated.StartDirection.LEFT, false);
         rightArrow = gui.createAnimatedDrawable(gui.createDrawable(SIPHON_GUI, 176, 33, 24, 16), time, IDrawableAnimated.StartDirection.RIGHT, false);
@@ -120,7 +120,7 @@ public class SiphoningCategory implements IRecipeCategory<SiphoningRecipe> {
         leftArrow.draw(graphics, LEFT_ARROW_X, SIDE_ARROW_Y);
         rightArrow.draw(graphics, RIGHT_ARROW_X, SIDE_ARROW_Y);
         Font font = Minecraft.getInstance().font;
-        Component time = Component.translatable("jei.caffeinecubed.siphoning.time", TripleAxisSiphonBlockEntity.SIPHONING_TIME / 20);
+        Component time = Component.translatable("jei.caffeinecubed.siphoning.time", TripleAxisSiphonBlockEntity.siphoningTime() / 20);
         graphics.drawString(font, time, TOP_ARROW_X + 20, TOP_ARROW_Y + 5, TEXT_COLOUR, false);
     }
 

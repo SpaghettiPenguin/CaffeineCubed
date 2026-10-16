@@ -1,5 +1,6 @@
 package com.caffeinecubed.block.entity;
 
+import com.caffeinecubed.CaffeineCubedConfig;
 import com.caffeinecubed.block.TripleAxisSiphonBlock;
 import com.caffeinecubed.menu.TripleAxisSiphonMenu;
 import com.caffeinecubed.registry.ModBlockEntities;
@@ -43,6 +44,13 @@ public class TripleAxisSiphonBlockEntity extends BaseContainerBlockEntity implem
      * Ticks to make one blend: four times as long as a furnace takes to smelt an item.
      */
     public static final int SIPHONING_TIME = 800;
+
+    /**
+     * Ticks to make one thing, as set in the config (SIPHONING_TIME unless changed).
+     */
+    public static int siphoningTime() {
+        return CaffeineCubedConfig.get(CaffeineCubedConfig.SIPHONING_TIME);
+    }
     /**
      * Ticks between hums, the same as a beacon's.
      */
@@ -124,7 +132,7 @@ public class TripleAxisSiphonBlockEntity extends BaseContainerBlockEntity implem
         if (!room) {
             return false;
         }
-        if (++progress >= SIPHONING_TIME) {
+        if (++progress >= siphoningTime()) {
             progress = 0;
             for (int input : INPUTS) {
                 use(input, recipe);

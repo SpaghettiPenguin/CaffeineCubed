@@ -182,14 +182,14 @@ public class CoffeeMachineMenu extends AbstractContainerMenu {
      * How far along the current cup is, from 0 to 1.
      */
     public float getProgress() {
-        return Mth.clamp((float) data.get(2) / CoffeeMachineBlockEntity.BREWING_TIME, 0, 1);
+        return Mth.clamp((float) data.get(2) / CoffeeMachineBlockEntity.brewingTime(), 0, 1);
     }
 
     /**
      * How far along the bean being ground is, from 0 to 1.
      */
     public float getGrindProgress() {
-        return Mth.clamp((float) data.get(3) / CoffeeMachineBlockEntity.GRINDING_TIME, 0, 1);
+        return Mth.clamp((float) data.get(3) / CoffeeMachineBlockEntity.grindingTime(), 0, 1);
     }
 
     /**

@@ -344,6 +344,30 @@ or syrup. Stacks to 16, and only with the same quality.
 **God's Ice Coffee** is made the same way with a block of ice instead of the water bucket, in a clear cup with a gold
 lid and straw and rainbow coffee. It is the same in every way, except that **Fire Resistance** replaces Speed II.
 
+## Config
+
+Each world, and each server, has its own settings in `serverconfig/caffeinecubed-server.toml` inside the world's folder.
+A server sends its settings to the players who join, so their machine screens, JEI pages and drink tooltips match the
+server. In singleplayer they can also be changed in-game: **Mods → Caffeine Cubed → Config**. A modpack can set the
+starting settings for new worlds by putting the file in `defaultconfigs/`.
+
+| Setting | Default | What it does |
+|---|---|---|
+| `growing.jungleGrassBeanChance` | 0.03125 (1 in 32) | Chance that jungle grass or ferns drop a raw bean |
+| `machines.roastingTime` | 200 ticks | Coffee Roaster, per bean |
+| `machines.handGrindingTime` | 20 ticks | Coffee Grinder, per bean |
+| `machines.brewingTime` | 400 ticks | Coffee Machine, per cup |
+| `machines.attachmentGrindingTime` | 100 ticks | Grinder Attachment, per bean |
+| `machines.siphoningTime` | 800 ticks | Triple Axis Siphon, per result |
+| `drinks.baseEffectSecondsPoor` / `Decent` / `Good` / `Great` | 60 / 120 / 180 / 240 | Speed (or Fire Resistance) from Coffee (or Ice Coffee) |
+| `drinks.roastEffectSeconds` | 60 | Slow Falling, Haste or Strength from the roast |
+| `drinks.milkRegenerationSeconds` | 30 | Regeneration from milk |
+| `drinks.syrupEffectSeconds` | 60 | A syrup's effect |
+| `drinks.godsCoffeeSecondsPoor` / `Decent` / `Good` / `Great` | 30 / 60 / 90 / 120 | Every effect of God's Coffee and God's Ice Coffee |
+
+20 ticks is one second, and machines that burn fuel still only burn it while working, so a coal lasts 1600 ticks of
+work. Setting an effect's seconds to 0 turns that effect off. The guide book and this README describe the defaults.
+
 ## Sounds and light
 
 Each machine sounds like what it does while it works, and glows as brightly as a lit furnace (light level 13), going

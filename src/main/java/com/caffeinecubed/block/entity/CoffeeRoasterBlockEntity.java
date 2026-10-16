@@ -1,5 +1,6 @@
 package com.caffeinecubed.block.entity;
 
+import com.caffeinecubed.CaffeineCubedConfig;
 import com.caffeinecubed.block.CoffeeRoasterBlock;
 import com.caffeinecubed.coffee.BeanQuality;
 import com.caffeinecubed.menu.CoffeeRoasterMenu;
@@ -42,6 +43,13 @@ public class CoffeeRoasterBlockEntity extends BaseContainerBlockEntity implement
      * a coal (1,600) roasts eight beans.
      */
     public static final int ROASTING_TIME = 200;
+
+    /**
+     * Ticks to roast one bean, as set in the config (ROASTING_TIME unless changed).
+     */
+    public static int roastingTime() {
+        return CaffeineCubedConfig.get(CaffeineCubedConfig.ROASTING_TIME);
+    }
     /**
      * Every roast, lightest first. Roasting a bean turns it into the next one; Dark Roast is as far as it goes.
      */
@@ -139,7 +147,7 @@ public class CoffeeRoasterBlockEntity extends BaseContainerBlockEntity implement
             return false;
         }
         fuel--;
-        if (++progress >= ROASTING_TIME) {
+        if (++progress >= roastingTime()) {
             progress = 0;
             items.get(INPUT).shrink(1);
             ItemStack output = items.get(OUTPUT);

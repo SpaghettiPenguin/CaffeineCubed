@@ -6,6 +6,7 @@ import com.caffeinecubed.registry.ModCapabilities;
 import com.caffeinecubed.registry.ModCreativeTabs;
 import com.caffeinecubed.registry.ModDataComponents;
 import com.caffeinecubed.registry.ModItems;
+import com.caffeinecubed.registry.ModLootConditions;
 import com.caffeinecubed.registry.ModLootFunctions;
 import com.caffeinecubed.registry.ModMenus;
 import com.caffeinecubed.registry.ModSounds;
@@ -13,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(CaffeineCubed.MODID)
@@ -26,9 +28,12 @@ public class CaffeineCubed {
         ModMenus.MENUS.register(modEventBus);
         ModDataComponents.DATA_COMPONENTS.register(modEventBus);
         ModLootFunctions.LOOT_FUNCTIONS.register(modEventBus);
+        ModLootConditions.LOOT_CONDITIONS.register(modEventBus);
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         ModSounds.SOUND_EVENTS.register(modEventBus);
         modEventBus.addListener(ModCapabilities::register);
+        // Each world (or server) has its own settings, which a server sends to the players who join
+        modContainer.registerConfig(ModConfig.Type.SERVER, CaffeineCubedConfig.SPEC);
 
         // The beans and the plant were first called Coffee Beans and Coffee Plant. These aliases let worlds saved
         // back then keep them under the new names.

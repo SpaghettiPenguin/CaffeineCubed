@@ -61,9 +61,9 @@ public class BrewingCategory implements IRecipeCategory<BrewingRecipe> {
         icon = gui.createDrawableItemLike(ModItems.COFFEE_MACHINE.get());
         // The flame burns down and the arrow fills downwards over one cup's brewing time, like in the machine
         flame = gui.createAnimatedDrawable(gui.createDrawable(MACHINE_GUI, 176, 0, 14, 14),
-                CoffeeMachineBlockEntity.BREWING_TIME, IDrawableAnimated.StartDirection.TOP, true);
+                CoffeeMachineBlockEntity.brewingTime(), IDrawableAnimated.StartDirection.TOP, true);
         arrow = gui.createAnimatedDrawable(gui.createDrawable(MACHINE_GUI, 176, 14, 16, 17),
-                CoffeeMachineBlockEntity.BREWING_TIME, IDrawableAnimated.StartDirection.TOP, false);
+                CoffeeMachineBlockEntity.brewingTime(), IDrawableAnimated.StartDirection.TOP, false);
     }
 
     @Override
@@ -132,7 +132,7 @@ public class BrewingCategory implements IRecipeCategory<BrewingRecipe> {
         flame.draw(graphics, FLAME_X, FLAME_Y);
         arrow.draw(graphics, ARROW_X, ARROW_Y);
         Font font = Minecraft.getInstance().font;
-        Component time = Component.translatable("jei.caffeinecubed.brewing.time", CoffeeMachineBlockEntity.BREWING_TIME / 20);
+        Component time = Component.translatable("jei.caffeinecubed.brewing.time", CoffeeMachineBlockEntity.brewingTime() / 20);
         graphics.drawString(font, time, ARROW_X + 20, ARROW_Y + 5, TEXT_COLOUR, false);
     }
 

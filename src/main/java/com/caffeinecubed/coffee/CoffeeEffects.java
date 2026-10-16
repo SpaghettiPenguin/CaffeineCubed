@@ -1,5 +1,6 @@
 package com.caffeinecubed.coffee;
 
+import com.caffeinecubed.CaffeineCubedConfig;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -13,13 +14,10 @@ import net.minecraft.world.effect.MobEffects;
  * Fire Resistance for Ice Coffee, for longer the better the beans were: 1 minute for poor, 2 for decent, 3 for good and
  * 4 for great. The roast adds a minute of a second effect: Slow Falling for light, Haste for medium and Strength for
  * dark. Milk from a Milk Frother adds 30 seconds of Regeneration I, and a syrup from a Syrup Compactor adds a minute of
- * its own effect.
+ * its own effect. Those are the defaults: every duration can be changed in the config (see CaffeineCubedConfig).
  */
 public final class CoffeeEffects {
-    private static final int TICKS_PER_MINUTE = 60 * 20;
-    private static final int ROAST_EFFECT_MINUTES = 1;
-    private static final int MILK_REGENERATION_SECONDS = 30;
-    private static final int SYRUP_EFFECT_MINUTES = 1;
+    private static final int TICKS_PER_SECOND = 20;
 
     private CoffeeEffects() {
     }
@@ -29,12 +27,12 @@ public final class CoffeeEffects {
      * for decent, 1:30 for good and 2 minutes for great.
      */
     public static int godsCoffeeSeconds(BeanQuality quality) {
-        return switch (quality) {
-            case POOR -> 30;
-            case DECENT -> 60;
-            case GOOD -> 90;
-            case GREAT -> 120;
-        };
+        return CaffeineCubedConfig.get(switch (quality) {
+            case POOR -> CaffeineCubedConfig.GODS_COFFEE_SECONDS_POOR;
+            case DECENT -> CaffeineCubedConfig.GODS_COFFEE_SECONDS_DECENT;
+            case GOOD -> CaffeineCubedConfig.GODS_COFFEE_SECONDS_GOOD;
+            case GREAT -> CaffeineCubedConfig.GODS_COFFEE_SECONDS_GREAT;
+        });
     }
 
     /**
@@ -43,26 +41,26 @@ public final class CoffeeEffects {
      * as the quality allows.
      */
     public static List<MobEffectInstance> godsCoffee(Holder<MobEffect> base, int baseAmplifier, BeanQuality quality) {
-        int ticks = godsCoffeeSeconds(quality) * 20;
+        int seconds = godsCoffeeSeconds(quality);
         List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(base, ticks, baseAmplifier));
+        add(effects, base, seconds, baseAmplifier);
         for (Holder<MobEffect> effect : List.of(MobEffects.REGENERATION, MobEffects.NIGHT_VISION, MobEffects.DAMAGE_RESISTANCE,
                 MobEffects.DAMAGE_BOOST, MobEffects.DIG_SPEED)) {
-            effects.add(new MobEffectInstance(effect, ticks));
+            add(effects, effect, seconds, 0);
         }
         return effects;
     }
 
     /**
-     * How long the base effect lasts, by the beans' quality.
+     * How many seconds the base effect lasts, by the beans' quality.
      */
-    public static int baseEffectMinutes(BeanQuality quality) {
-        return switch (quality) {
-            case POOR -> 1;
-            case DECENT -> 2;
-            case GOOD -> 3;
-            case GREAT -> 4;
-        };
+    public static int baseEffectSeconds(BeanQuality quality) {
+        return CaffeineCubedConfig.get(switch (quality) {
+            case POOR -> CaffeineCubedConfig.BASE_EFFECT_SECONDS_POOR;
+            case DECENT -> CaffeineCubedConfig.BASE_EFFECT_SECONDS_DECENT;
+            case GOOD -> CaffeineCubedConfig.BASE_EFFECT_SECONDS_GOOD;
+            case GREAT -> CaffeineCubedConfig.BASE_EFFECT_SECONDS_GREAT;
+        });
     }
 
     public static Holder<MobEffect> roastEffect(Roast roast) {
@@ -79,14 +77,23 @@ public final class CoffeeEffects {
      */
     public static List<MobEffectInstance> of(Holder<MobEffect> base, BeanQuality quality, Roast roast, boolean milk, @Nullable Syrup syrup) {
         List<MobEffectInstance> effects = new ArrayList<>();
-        effects.add(new MobEffectInstance(base, baseEffectMinutes(quality) * TICKS_PER_MINUTE));
-        effects.add(new MobEffectInstance(roastEffect(roast), ROAST_EFFECT_MINUTES * TICKS_PER_MINUTE));
+        add(effects, base, baseEffectSeconds(quality), 0);
+        add(effects, roastEffect(roast), CaffeineCubedConfig.get(CaffeineCubedConfig.ROAST_EFFECT_SECONDS), 0);
         if (milk) {
-            effects.add(new MobEffectInstance(MobEffects.REGENERATION, MILK_REGENERATION_SECONDS * 20));
+            add(effects, MobEffects.REGENERATION, CaffeineCubedConfig.get(CaffeineCubedConfig.MILK_REGENERATION_SECONDS), 0);
         }
         if (syrup != null) {
-            effects.add(new MobEffectInstance(syrup.effect(), SYRUP_EFFECT_MINUTES * TICKS_PER_MINUTE));
+            add(effects, syrup.effect(), CaffeineCubedConfig.get(CaffeineCubedConfig.SYRUP_EFFECT_SECONDS), 0);
         }
         return effects;
+    }
+
+    /**
+     * Adds an effect lasting this many seconds; none at all if it has been set to 0 in the config.
+     */
+    private static void add(List<MobEffectInstance> effects, Holder<MobEffect> effect, int seconds, int amplifier) {
+        if (seconds > 0) {
+            effects.add(new MobEffectInstance(effect, seconds * TICKS_PER_SECOND, amplifier));
+        }
     }
 }

@@ -126,6 +126,6 @@ public class CoffeeRoasterMenu extends AbstractContainerMenu {
      * How far along the current bean is, from 0 to 1.
      */
     public float getProgress() {
-        return Mth.clamp((float) data.get(2) / CoffeeRoasterBlockEntity.ROASTING_TIME, 0, 1);
+        return Mth.clamp((float) data.get(2) / CoffeeRoasterBlockEntity.roastingTime(), 0, 1);
     }
 }

@@ -1,5 +1,6 @@
 package com.caffeinecubed.item;
 
+import com.caffeinecubed.CaffeineCubedConfig;
 import com.caffeinecubed.coffee.BeanQuality;
 import com.caffeinecubed.registry.ModDataComponents;
 import com.caffeinecubed.registry.ModItems;
@@ -35,6 +36,13 @@ public class CoffeeGrinderItem extends Item {
      * Ticks of grinding per bean.
      */
     public static final int GRIND_TIME = 20;
+
+    /**
+     * Ticks to grind one bean, as set in the config (GRIND_TIME unless changed).
+     */
+    public static int grindTime() {
+        return CaffeineCubedConfig.get(CaffeineCubedConfig.HAND_GRINDING_TIME);
+    }
     /**
      * Which beans grind into which grounds. Raw beans have to be roasted first.
      */
@@ -99,7 +107,7 @@ public class CoffeeGrinderItem extends Item {
                 spawnBeanBits(level, player, beans);
             }
         }
-        if (ticks > 0 && ticks % GRIND_TIME == 0 && !level.isClientSide) {
+        if (ticks > 0 && ticks % grindTime() == 0 && !level.isClientSide) {
             beans.consume(1, player);
             if (!player.getInventory().add(grounds)) {
                 player.drop(grounds, false);

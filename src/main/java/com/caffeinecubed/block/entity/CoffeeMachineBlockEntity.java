@@ -1,5 +1,6 @@
 package com.caffeinecubed.block.entity;
 
+import com.caffeinecubed.CaffeineCubedConfig;
 import com.caffeinecubed.block.CoffeeMachineBlock;
 import com.caffeinecubed.block.CoffeeMachineSideAttachmentBlock;
 import com.caffeinecubed.client.CoffeeMachineBrewingSound;
@@ -78,6 +79,20 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
      * Ticks for the Grinder Attachment to grind one bean: half as long as a furnace takes to smelt an item.
      */
     public static final int GRINDING_TIME = 100;
+
+    /**
+     * Ticks to brew one cup, as set in the config (BREWING_TIME unless changed).
+     */
+    public static int brewingTime() {
+        return CaffeineCubedConfig.get(CaffeineCubedConfig.BREWING_TIME);
+    }
+
+    /**
+     * Ticks for the Grinder Attachment to grind one bean, as set in the config (GRINDING_TIME unless changed).
+     */
+    public static int grindingTime() {
+        return CaffeineCubedConfig.get(CaffeineCubedConfig.ATTACHMENT_GRINDING_TIME);
+    }
     // Grounds go in the top, water or ice, fuel, beans, milk and syrup ingredients in the sides, and coffee and empty
     // buckets come out of the bottom. A hopper above a Grinder Attachment or Milk Frother feeds it too (see ModCapabilities).
     private static final int[] SLOTS_FOR_UP = {GROUNDS};
@@ -264,7 +279,7 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
             return false;
         }
         fuel--;
-        if (++progress >= BREWING_TIME) {
+        if (++progress >= brewingTime()) {
             progress = 0;
             grounds.shrink(GROUNDS_PER_CUP);
             if (iced) {
@@ -305,7 +320,7 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
         if (!room) {
             return;
         }
-        if (++grindProgress >= GRINDING_TIME) {
+        if (++grindProgress >= grindingTime()) {
             grindProgress = 0;
             beans.shrink(1);
             if (slot.isEmpty()) {

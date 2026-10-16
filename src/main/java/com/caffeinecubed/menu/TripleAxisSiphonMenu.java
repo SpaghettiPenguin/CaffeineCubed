@@ -120,6 +120,6 @@ public class TripleAxisSiphonMenu extends AbstractContainerMenu {
      * How far along the blend is, from 0 to 1.
      */
     public float getProgress() {
-        return Mth.clamp((float) data.get(0) / TripleAxisSiphonBlockEntity.SIPHONING_TIME, 0, 1);
+        return Mth.clamp((float) data.get(0) / TripleAxisSiphonBlockEntity.siphoningTime(), 0, 1);
     }
 }

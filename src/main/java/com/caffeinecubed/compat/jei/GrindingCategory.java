@@ -48,7 +48,7 @@ public class GrindingCategory implements IRecipeCategory<BeanRecipe> {
         icon = gui.createDrawableItemLike(ModItems.COFFEE_GRINDER.get());
         // The roaster's arrow, filling over the time one bean takes to grind
         arrow = gui.createAnimatedDrawable(gui.createDrawable(ROASTER_GUI, 176, 14, 24, 16),
-                CoffeeGrinderItem.GRIND_TIME, IDrawableAnimated.StartDirection.LEFT, false);
+                CoffeeGrinderItem.grindTime(), IDrawableAnimated.StartDirection.LEFT, false);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class GrindingCategory implements IRecipeCategory<BeanRecipe> {
         panel.draw(graphics);
         arrow.draw(graphics, ARROW_X, ARROW_Y);
         Font font = Minecraft.getInstance().font;
-        Component time = Component.translatable("jei.caffeinecubed.grinding.time", CoffeeGrinderItem.GRIND_TIME / 20);
+        Component time = Component.translatable("jei.caffeinecubed.grinding.time", CoffeeGrinderItem.grindTime() / 20);
         graphics.drawString(font, time, ARROW_X + 12 - font.width(time) / 2, ARROW_Y + 18, TEXT_COLOUR, false);
     }
 

@@ -49,9 +49,9 @@ public class RoastingCategory implements IRecipeCategory<BeanRecipe> {
         icon = gui.createDrawableItemLike(ModItems.COFFEE_ROASTER.get());
         // The flame burns down and the arrow fills over one bean's roasting time, like in the roaster
         flame = gui.createAnimatedDrawable(gui.createDrawable(ROASTER_GUI, 176, 0, 14, 14),
-                CoffeeRoasterBlockEntity.ROASTING_TIME, IDrawableAnimated.StartDirection.TOP, true);
+                CoffeeRoasterBlockEntity.roastingTime(), IDrawableAnimated.StartDirection.TOP, true);
         arrow = gui.createAnimatedDrawable(gui.createDrawable(ROASTER_GUI, 176, 14, 24, 16),
-                CoffeeRoasterBlockEntity.ROASTING_TIME, IDrawableAnimated.StartDirection.LEFT, false);
+                CoffeeRoasterBlockEntity.roastingTime(), IDrawableAnimated.StartDirection.LEFT, false);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class RoastingCategory implements IRecipeCategory<BeanRecipe> {
         flame.draw(graphics, FLAME_X, FLAME_Y);
         arrow.draw(graphics, ARROW_X, ARROW_Y);
         Font font = Minecraft.getInstance().font;
-        Component time = Component.translatable("jei.caffeinecubed.roasting.time", CoffeeRoasterBlockEntity.ROASTING_TIME / 20);
+        Component time = Component.translatable("jei.caffeinecubed.roasting.time", CoffeeRoasterBlockEntity.roastingTime() / 20);
         graphics.drawString(font, time, ARROW_X + 12 - font.width(time) / 2, ARROW_Y + 18, TEXT_COLOUR, false);
     }
 

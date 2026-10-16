@@ -30,8 +30,7 @@
       }
     },
     {
-      "condition": "minecraft:random_chance",
-      "chance": 0.03125
+      "condition": "caffeinecubed:jungle_grass_bean_chance"
     }
   ],
   "table": "caffeinecubed:gameplay/raw_coffee_beans_from_jungle_grass"
