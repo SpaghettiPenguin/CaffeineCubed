@@ -93,5 +93,10 @@
   "caffeinecubed.configuration.godsCoffeeSecondsPoor": "신의 커피, 나쁨",
   "caffeinecubed.configuration.godsCoffeeSecondsDecent": "신의 커피, 보통",
   "caffeinecubed.configuration.godsCoffeeSecondsGood": "신의 커피, 좋음",
-  "caffeinecubed.configuration.godsCoffeeSecondsGreat": "신의 커피, 최상"
+  "caffeinecubed.configuration.godsCoffeeSecondsGreat": "신의 커피, 최상",
+  "config.jade.plugin_caffeinecubed.coffee_roaster": "커피 로스터",
+  "config.jade.plugin_caffeinecubed.coffee_machine": "커피 머신",
+  "config.jade.plugin_caffeinecubed.triple_axis_siphon": "3축 사이펀",
+  "config.jade.plugin_caffeinecubed.coffee_machine_attachments": "커피 머신 부착물",
+  "config.jade.plugin_caffeinecubed.coffee_bush_quality": "커피나무 품질"
 }

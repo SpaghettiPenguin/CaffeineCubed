@@ -93,5 +93,10 @@
   "caffeinecubed.configuration.godsCoffeeSecondsPoor": "神のコーヒー・粗悪",
   "caffeinecubed.configuration.godsCoffeeSecondsDecent": "神のコーヒー・普通",
   "caffeinecubed.configuration.godsCoffeeSecondsGood": "神のコーヒー・良質",
-  "caffeinecubed.configuration.godsCoffeeSecondsGreat": "神のコーヒー・最高級"
+  "caffeinecubed.configuration.godsCoffeeSecondsGreat": "神のコーヒー・最高級",
+  "config.jade.plugin_caffeinecubed.coffee_roaster": "コーヒー焙煎機",
+  "config.jade.plugin_caffeinecubed.coffee_machine": "コーヒーメーカー",
+  "config.jade.plugin_caffeinecubed.triple_axis_siphon": "三軸サイフォン",
+  "config.jade.plugin_caffeinecubed.coffee_machine_attachments": "コーヒーメーカーのアタッチメント",
+  "config.jade.plugin_caffeinecubed.coffee_bush_quality": "コーヒーの木の品質"
 }

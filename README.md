@@ -4,7 +4,8 @@
 
 A mod for Minecraft focused on growing, grinding, and brewing coffee. Made for NeoForge, Minecraft 1.21.1.
 
-Needs [Patchouli](https://modrinth.com/project/patchouli) (1.21.1-93 or newer) for its guide book. JEI is optional.
+Needs [Patchouli](https://modrinth.com/project/patchouli) (1.21.1-93 or newer) for its guide book. JEI and Jade
+(15.10 or newer) are optional.
 
 Languages: English, German (`de_de`), Spanish (Spain, `es_es`), Japanese (`ja_jp`) and Korean (`ko_kr`), for every
 name, tooltip, message and JEI text. The guide book is in English for now (Patchouli shows it in English in any
@@ -455,6 +456,23 @@ When JEI is installed (it's optional):
 - The Coffee Roaster is listed as the machine for roasting and on JEI's fuel page. Clicking the arrow in the roaster
   opens its recipes, and JEI's [+] button moves beans from your inventory into it.
 
+## Jade
+
+When Jade is installed (it's optional), looking at a block shows:
+
+- **Coffee Roaster, Coffee Machine, Triple Axis Siphon:** what's in the machine in one row, like Jade shows a furnace:
+  the ingredients and fuel, an arrow that fills up as it works, then what it has made. The Coffee Machine's row starts
+  with the Grinder Attachment's beans and their own arrow, then the grounds, water or ice, fuel, milk and syrup
+  ingredient. Jade's usual list of a container's items is left out, since the row already shows them. An empty machine
+  shows nothing extra.
+- **Grinder Attachment, Milk Frother, Syrup Compactor:** their part of the machine: the beans being ground (with the
+  arrow and the grounds), the milk, or the syrup ingredient and which syrup it makes.
+- **Coffee Bush:** the quality of the beans it grows, under Jade's own Growth line.
+
+Each can be turned off in Jade's plugin settings, under Caffeine Cubed. The machine and attachment rows come from the
+server, so on a multiplayer server they need Jade installed on the server as well (in singleplayer that's automatic);
+the bush's quality works with Jade on the player's side alone.
+
 ## License
 
 Caffeine Cubed is under the [MIT License](LICENSE): anyone may use, copy, change and share it, in their own projects
@@ -470,9 +488,10 @@ brewing sound, which keeps its own license (below).
 ## Development
 
 - Build: `gradlew build` (needs JDK 21; the jar ends up in `build/libs`).
-- Play in a dev client: `gradlew runClient`. Gradle downloads JEI and Patchouli for it (`jei_version` and
-  `patchouli_version` in `gradle.properties`), so nothing needs to be put in `run/mods`. The JEI code is in `compat/jei`
-  and only loads when JEI does.
+- Play in a dev client: `gradlew runClient`. Gradle downloads JEI, Patchouli and Jade for it (`jei_version`,
+  `patchouli_version` and `jade_version` in `gradle.properties`; Jade comes from Modrinth's Maven), so nothing needs to
+  be put in `run/mods`. The JEI code is in `compat/jei` and the Jade code in `compat/jade`, and each only loads when
+  its mod does.
 - The Blockbench projects for every model are in `blockbench/`; export a model from there and change only its texture
   path (and add the cutout render type) to update it.
 - Game tests: `gradlew runGameTestServer`, or `/test runall` in a dev client.

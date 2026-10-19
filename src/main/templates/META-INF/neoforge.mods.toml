@@ -53,3 +53,11 @@ Every cup's effects depend on its beans' quality and roast. Craft a book with a 
     versionRange="[1.21.1-93,)"
     ordering="NONE"
     side="BOTH"
+
+# Jade is optional: with it, looking at a machine shows what it's doing. Older versions of it don't have the parts used.
+[[dependencies.${mod_id}]]
+    modId="jade"
+    type="optional"
+    versionRange="[15.10,)"
+    ordering="NONE"
+    side="BOTH"

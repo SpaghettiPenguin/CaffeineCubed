@@ -93,5 +93,10 @@
   "caffeinecubed.configuration.godsCoffeeSecondsPoor": "Göttlicher Kaffee, Schlecht",
   "caffeinecubed.configuration.godsCoffeeSecondsDecent": "Göttlicher Kaffee, Ordentlich",
   "caffeinecubed.configuration.godsCoffeeSecondsGood": "Göttlicher Kaffee, Gut",
-  "caffeinecubed.configuration.godsCoffeeSecondsGreat": "Göttlicher Kaffee, Hervorragend"
+  "caffeinecubed.configuration.godsCoffeeSecondsGreat": "Göttlicher Kaffee, Hervorragend",
+  "config.jade.plugin_caffeinecubed.coffee_roaster": "Kaffeeröster",
+  "config.jade.plugin_caffeinecubed.coffee_machine": "Kaffeemaschine",
+  "config.jade.plugin_caffeinecubed.triple_axis_siphon": "Dreiachsen-Siphon",
+  "config.jade.plugin_caffeinecubed.coffee_machine_attachments": "Kaffeemaschinen-Aufsätze",
+  "config.jade.plugin_caffeinecubed.coffee_bush_quality": "Qualität des Kaffeestrauchs"
 }

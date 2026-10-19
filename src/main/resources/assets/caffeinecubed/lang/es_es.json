@@ -93,5 +93,10 @@
   "caffeinecubed.configuration.godsCoffeeSecondsPoor": "Café de los dioses, Mala",
   "caffeinecubed.configuration.godsCoffeeSecondsDecent": "Café de los dioses, Aceptable",
   "caffeinecubed.configuration.godsCoffeeSecondsGood": "Café de los dioses, Buena",
-  "caffeinecubed.configuration.godsCoffeeSecondsGreat": "Café de los dioses, Excelente"
+  "caffeinecubed.configuration.godsCoffeeSecondsGreat": "Café de los dioses, Excelente",
+  "config.jade.plugin_caffeinecubed.coffee_roaster": "Tostador de café",
+  "config.jade.plugin_caffeinecubed.coffee_machine": "Cafetera",
+  "config.jade.plugin_caffeinecubed.triple_axis_siphon": "Sifón de triple eje",
+  "config.jade.plugin_caffeinecubed.coffee_machine_attachments": "Accesorios de la cafetera",
+  "config.jade.plugin_caffeinecubed.coffee_bush_quality": "Calidad del arbusto de café"
 }
