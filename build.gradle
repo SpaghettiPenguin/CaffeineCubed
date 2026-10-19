@@ -47,7 +47,8 @@ repositories {
 }
 
 base {
-    archivesName = mod_id
+    // The jar says which loader and Minecraft version it's for: caffeinecubed-neoforge-1.21.1-1.0.0.jar
+    archivesName = "${mod_id}-neoforge-${minecraft_version}"
 }
 
 // Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
