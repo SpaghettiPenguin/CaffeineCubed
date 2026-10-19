@@ -385,7 +385,7 @@ Quality works the same for every recipe: the result keeps the quality of what we
 ```json
 {
   "type": "caffeinecubed:roasting",
-  "ingredient": { "item": "caffeinecubed:raw_coffee_beans" },
+  "ingredient": { "tag": "c:crops/coffee_bean" },
   "result": { "id": "caffeinecubed:light_roast_coffee_beans" }
 }
 ```
@@ -412,7 +412,7 @@ bucket behind, as any item with a crafting remainder does:
   "type": "caffeinecubed:siphoning",
   "ingredients": [
     { "ingredient": { "item": "caffeinecubed:rainbow_blend" }, "count": 3 },
-    { "ingredient": { "item": "minecraft:water_bucket" } },
+    { "ingredient": { "tag": "c:buckets/water" } },
     { "ingredient": { "item": "minecraft:enchanted_golden_apple" } }
   ],
   "result": { "id": "caffeinecubed:gods_coffee" }
@@ -421,6 +421,35 @@ bucket behind, as any item with a crafting remainder does:
 
 How long each machine takes is in the config, not the recipes. The crafting-table recipes for the machines, the
 grinder and the guide book are ordinary vanilla recipes in `data/caffeinecubed/recipe/`.
+
+## Shared tags
+
+The mod uses the common (`c:`) tags that NeoForge mods share, so other mods can work with its items and it can work
+with theirs. In a game with no other mods, nothing changes.
+
+The mod's items are in:
+
+| Tag | Items |
+|---|---|
+| `c:crops/coffee_bean` (part of `c:crops`) | Raw Coffee Beans |
+| `c:drinks/coffee` (part of `c:drinks`) | Coffee, Ice Coffee, God's Coffee, God's Ice Coffee |
+
+They're named like NeoForge's own `c:crops/cocoa_bean` and `c:drinks/milk`, so another coffee mod can add its beans
+and drinks to the same tags.
+
+The mod takes anything in these:
+
+- **Coffee Roaster:** roasts anything in `c:crops/coffee_bean` into Light Roast beans, so another mod's raw coffee
+  beans can be roasted too (Decent quality, unless they come with one).
+- **Coffee Machine:** takes any water bucket in `c:buckets/water` and, with a Milk Frother, any milk bucket in
+  `c:buckets/milk`, and leaves its empty bucket behind. Hoppers take out anything in `c:buckets/empty`. JEI's brewing
+  page lists every bucket in those tags.
+- **Triple Axis Siphon:** God's Coffee takes any water bucket in `c:buckets/water`.
+- **Crafting:** the machines' and the grinder's recipes take `c:ingots/iron`, `c:ingots/gold`, `c:rods/wooden` (sticks),
+  `c:glass_panes/colorless`, `c:player_workstations/furnaces`, `c:nether_stars` and `c:buckets/milk` in place of the
+  vanilla items, so other mods' iron, sticks and so on work too. Ingredients with no common tag for exactly the same
+  thing (flint, paper, hoppers, pistons, glass bottles, quartz blocks, books) are still the vanilla items. The guide
+  book is still made from this mod's own Raw Coffee Beans.
 
 ## Sounds and light
 

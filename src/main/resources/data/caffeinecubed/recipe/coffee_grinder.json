@@ -8,13 +8,13 @@
   ],
   "key": {
     "S": {
-      "item": "minecraft:stick"
+      "tag": "c:rods/wooden"
     },
     "F": {
       "item": "minecraft:flint"
     },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     }
   },
   "result": {

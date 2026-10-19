@@ -8,16 +8,16 @@
   ],
   "key": {
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "G": {
-      "item": "minecraft:glass_pane"
+      "tag": "c:glass_panes/colorless"
     },
     "P": {
       "item": "minecraft:paper"
     },
     "F": {
-      "item": "minecraft:furnace"
+      "tag": "c:player_workstations/furnaces"
     }
   },
   "result": {

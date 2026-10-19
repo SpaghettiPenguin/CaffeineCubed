@@ -8,13 +8,13 @@
   ],
   "key": {
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "G": {
-      "item": "minecraft:glass_pane"
+      "tag": "c:glass_panes/colorless"
     },
     "B": {
-      "item": "minecraft:milk_bucket"
+      "tag": "c:buckets/milk"
     }
   },
   "result": {

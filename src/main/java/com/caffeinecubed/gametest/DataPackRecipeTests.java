@@ -13,7 +13,9 @@ import com.caffeinecubed.registry.ModBlocks;
 import com.caffeinecubed.registry.ModDataComponents;
 import com.caffeinecubed.registry.ModItems;
 import com.caffeinecubed.registry.ModRecipes;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
@@ -25,15 +27,19 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -118,7 +124,7 @@ public final class DataPackRecipeTests {
 
     /**
      * Players' games get the server's recipes over the network (for JEI and for the slots in the machines' menus), so
-     * each one has to come out the other end the same.
+     * each one has to come out the other end the same. As with every recipe, a tag arrives as the items in it.
      */
     @GameTest(template = EMPTY)
     public static void recipesReachPlayersUnchanged(GameTestHelper helper) {
@@ -130,7 +136,7 @@ public final class DataPackRecipeTests {
                 continue;
             }
             Recipe<?> sent = sendAndReceive(level, holder.value());
-            JsonElement before = Recipe.CODEC.encodeStart(ops, holder.value()).getOrThrow();
+            JsonElement before = tagsAsItems(Recipe.CODEC.encodeStart(ops, holder.value()).getOrThrow());
             JsonElement after = Recipe.CODEC.encodeStart(ops, sent).getOrThrow();
             helper.assertTrue(before.equals(after), holder.id() + " changed on the way: " + before + " became " + after);
         }
@@ -197,6 +203,32 @@ public final class DataPackRecipeTests {
         helper.assertTrue(CoffeeRoasterBlockEntity.roast(level, new ItemStack(ModItems.MEDIUM_ROAST_COFFEE_BEANS.get())).is(ModItems.DARK_ROAST_COFFEE_BEANS.get()),
                 "The mod's own recipes should be back");
         helper.succeed();
+    }
+
+    /**
+     * The recipe's JSON with each tag ingredient written out as the items in it, the way it reads after the trip.
+     */
+    private static JsonElement tagsAsItems(JsonElement json) {
+        if (json instanceof JsonArray array) {
+            JsonArray copy = new JsonArray();
+            array.forEach(element -> copy.add(tagsAsItems(element)));
+            return copy;
+        }
+        if (!(json instanceof JsonObject object)) {
+            return json;
+        }
+        if (object.size() == 1 && object.has("tag")) {
+            JsonArray items = new JsonArray();
+            for (ItemStack stack : Ingredient.of(TagKey.create(Registries.ITEM, ResourceLocation.parse(object.get("tag").getAsString()))).getItems()) {
+                JsonObject item = new JsonObject();
+                item.addProperty("item", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
+                items.add(item);
+            }
+            return items.size() == 1 ? items.get(0) : items;
+        }
+        JsonObject copy = new JsonObject();
+        object.entrySet().forEach(entry -> copy.add(entry.getKey(), tagsAsItems(entry.getValue())));
+        return copy;
     }
 
     private static void expectIds(GameTestHelper helper, RecipeManager recipes, RecipeType<?> type, String... names) {

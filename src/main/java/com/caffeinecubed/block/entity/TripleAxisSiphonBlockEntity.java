@@ -23,11 +23,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.Tags;
 
 /**
  * Slowly draws three ingredients together into one, as its {@code caffeinecubed:siphoning} recipes say (see
@@ -196,7 +196,7 @@ public class TripleAxisSiphonBlockEntity extends BaseContainerBlockEntity implem
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
         // What it made comes out, and so do empty buckets left by the water
-        return slot == OUTPUT || stack.is(Items.BUCKET);
+        return slot == OUTPUT || stack.is(Tags.Items.BUCKETS_EMPTY);
     }
 
     @Override

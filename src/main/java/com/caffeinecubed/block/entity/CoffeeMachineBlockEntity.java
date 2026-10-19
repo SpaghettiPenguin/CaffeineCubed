@@ -32,6 +32,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.Tags;
 
 /**
  * Brews a cup of Coffee from a bucket of water and three coffee grounds of the same roast and quality, burning furnace
@@ -152,8 +153,11 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
         return CoffeeRecipes.brewing(level, stack).isPresent();
     }
 
+    /**
+     * A water bucket: anything in {@code c:buckets/water}, so other mods' water buckets work too.
+     */
     public static boolean isWater(ItemStack stack) {
-        return stack.is(Items.WATER_BUCKET);
+        return stack.is(Tags.Items.BUCKETS_WATER);
     }
 
     public static boolean isIce(ItemStack stack) {
@@ -171,8 +175,18 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
         return stack.getBurnTime(RecipeType.SMELTING) > 0;
     }
 
+    /**
+     * A milk bucket: anything in {@code c:buckets/milk}.
+     */
     public static boolean isMilk(ItemStack stack) {
-        return stack.is(Items.MILK_BUCKET);
+        return stack.is(Tags.Items.BUCKETS_MILK);
+    }
+
+    /**
+     * What a used water or milk bucket leaves behind: its empty bucket.
+     */
+    private static ItemStack emptied(ItemStack bucket) {
+        return bucket.hasCraftingRemainingItem() ? bucket.getCraftingRemainingItem() : new ItemStack(Items.BUCKET);
     }
 
     /**
@@ -277,10 +291,10 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
             if (iced) {
                 water.shrink(1);
             } else {
-                items.set(WATER, new ItemStack(Items.BUCKET));
+                items.set(WATER, emptied(water));
             }
             if (milk) {
-                items.set(MILK, new ItemStack(Items.BUCKET));
+                items.set(MILK, emptied(items.get(MILK)));
             }
             if (syrup != null) {
                 items.get(SYRUP).shrink(1);
@@ -408,7 +422,7 @@ public class CoffeeMachineBlockEntity extends BaseContainerBlockEntity implement
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
         // Coffee comes out, and so do the empty buckets left by the water and by lava used as fuel
-        return slot == OUTPUT || stack.is(Items.BUCKET);
+        return slot == OUTPUT || stack.is(Tags.Items.BUCKETS_EMPTY);
     }
 
     @Override

@@ -1,7 +1,7 @@
 {
   "type": "caffeinecubed:roasting",
   "ingredient": {
-    "item": "caffeinecubed:raw_coffee_beans"
+    "tag": "c:crops/coffee_bean"
   },
   "result": {
     "id": "caffeinecubed:light_roast_coffee_beans"

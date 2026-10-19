@@ -8,10 +8,10 @@
   ],
   "key": {
     "G": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     },
     "S": {
-      "item": "minecraft:nether_star"
+      "tag": "c:nether_stars"
     },
     "Q": {
       "item": "minecraft:quartz_block"

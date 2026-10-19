@@ -9,7 +9,7 @@
     },
     {
       "ingredient": {
-        "item": "minecraft:water_bucket"
+        "tag": "c:buckets/water"
       }
     },
     {

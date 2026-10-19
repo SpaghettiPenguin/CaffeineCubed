@@ -11,10 +11,10 @@
       "item": "minecraft:hopper"
     },
     "F": {
-      "item": "minecraft:furnace"
+      "tag": "c:player_workstations/furnaces"
     },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     }
   },
   "result": {

@@ -22,6 +22,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.neoforge.common.Tags;
 
 /**
  * JEI's "Coffee Brewing" page: the Coffee Machine's two columns in miniature. Water or ice and the flame on the left; three
@@ -92,14 +94,15 @@ public class BrewingCategory implements IRecipeCategory<BrewingRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, BrewingRecipe recipe, IFocusGroup focuses) {
-        builder.addInputSlot(3, 3).addItemStack(new ItemStack(recipe.iced() ? Items.ICE : Items.WATER_BUCKET))
+        // Every water or milk bucket the machine takes, other mods' too
+        builder.addInputSlot(3, 3).addIngredients(recipe.iced() ? Ingredient.of(Items.ICE) : Ingredient.of(Tags.Items.BUCKETS_WATER))
                 .addRichTooltipCallback((slot, tooltip) -> tooltip.add(Component.translatable(
                         recipe.iced() ? "jei.caffeinecubed.brewing.ice" : "jei.caffeinecubed.brewing.water").withStyle(ChatFormatting.GRAY)));
         IRecipeSlotBuilder grounds = builder.addInputSlot(41, 3).addItemStacks(recipe.inputs())
                 .addRichTooltipCallback((slot, tooltip) -> tooltip.add(
                         Component.translatable("jei.caffeinecubed.brewing.grounds").withStyle(ChatFormatting.GRAY)));
         if (recipe.milk()) {
-            builder.addInputSlot(MILK_X + 1, MILK_Y + 1).addItemStack(new ItemStack(Items.MILK_BUCKET))
+            builder.addInputSlot(MILK_X + 1, MILK_Y + 1).addIngredients(Ingredient.of(Tags.Items.BUCKETS_MILK))
                     .addRichTooltipCallback((slot, tooltip) -> {
                         tooltip.add(Component.translatable("jei.caffeinecubed.brewing.milk").withStyle(ChatFormatting.GRAY));
                         tooltip.add(Component.translatable("jei.caffeinecubed.brewing.milk.effect").withStyle(ChatFormatting.GRAY));
